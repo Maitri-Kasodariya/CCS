@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/vendorhomestyle.css">
+    <title>Vendor Home</title>
+</head>
+<body>
+    
+    <nav class="navbar">
+        <div class="main-title"><a href="#"><b>Vendor Home</b></a></div>
+        <div class="navbar-links">
+            <ul>
+                <li><a href="/">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+  
+    <div class="sec1">
+        <h1><b><%=object.name%></b></h1>
+        <div>
+            <form action="/changebar/<%= object.id%>" method="post">
+                <label for="Bar">Rush Bar:</label>
+                <input type="number" name="bar" min="0" max="100" step="1" placeholder="<%= object.bval%>">
+                <button type="submit" value="Submit" class="btn btn1">Change</button>
+            </form>
+            <button onclick="window.location.href='/showmenu/<%= object.id %>'" class="btn">Show the Menu</button>
+            <button onclick="window.location.href='/monthlyanalysis/<%= object.id %>'" class="btn">Monthly Order Analysis</button>
+            <button onclick="window.location.href='/dailyanalysis/<%= object.id %>'" class="btn">Daily Order Analysis</button>
+        </div>
+    </div>
+    
+    <h2>Order List</h2>
+    <table>
+        <tr>
+            <th>Sr. No.</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Token No.</th>
+            <th>Delivery</th>
+            <th colspan="2">Status</th>
+            
+        </tr>
+        <% for (var i = 0; i < object.orderdata.length; i++) { %>
+        <tr <% if (object.orderdata[i].role == "Professor") { %>class="prof"<% } %>>
+            <td><%= i + 1 %></td>
+            <td><%= object.orderdata[i].name %></td>
+            <td><%= object.orderdata[i].price %></td>
+            <td><%= object.orderdata[i].quantity %></td>
+            <td><%= object.orderdata[i].token %></td>
+            <td><%= object.orderdata[i].delivery %></td>
+            <td>
+                <form action="/acceptorder/<%= object.orderdata[i]._id %>" method="get">
+                    <input type="number" name="token" placeholder="Enter token" onchange="checkToken(this, '<%= object.orderdata[i].token %>', <%= i %>)">
+                    <button type="submit" id="accept-<%= i %>" class="tick" hidden="hidden" >Done</button>
+                </form>
+            </td>
+            <td>
+                <form action="/rejectorder/<%= object.orderdata[i]._id %>" method="get">
+                    <button type="submit" id="reject" class="cancel">Cancel</button>
+                </form>
+            </td>
+            <td>
+                <span id="message-<%= i %>" style="display: none;"></span>
+            </td>
+        </tr>
+        <% } %>
+    </table>
+
+    <script>
+        function checkToken(input, orderToken, index) {
+            const enteredToken = input.value;
+            const doneButton = input.form.querySelector("#accept-" + index);
+            const message = document.querySelector("#message-" + index);
+            if (enteredToken === orderToken) {
+                doneButton.click();
+                message.textContent = "Token Matched!";
+                message.style.display = "inline";
+            } else {
+                message.textContent = "Token does not match.";
+                message.style.display = "inline";
+            }
+        }
+    </script>
+</body>
+</html>

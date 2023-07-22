@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap');
+body {
+     background:white;
+}
+* {
+    box-sizing:border-box;
+;
+}
+
+body{
+    margin :0;
+    padding: 0;
+}
+
+.main-title a{
+    font-size: 2rem;
+     margin: 0.7rem;
+     text-decoration:none;
+     color:white ;
+     margin-right: 0.5rem;
+ }
+
+.navbar{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    background-color: #FE724C;
+    color:white;
+
+}
+
+.navbar-links ul{
+   margin: 0;
+   padding: 0;
+   display: flex;
+   margin-right: 8px;
+   
+}
+.navbar-links li{
+   list-style: none;
+   font-size: 1.5rem;
+
+}
+.navbar-links li a{
+    text-decoration: none;
+    color: white;
+    padding: 1rem;
+    display: block;
+    font-size: 1.5rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.title{
+  
+   margin-left:700px ;
+   margin-top: 50px;
+}
+
+.container{
+    float: left;
+    border-radius: 10px;
+   width: 30%;
+    margin-top: 50px;
+    border: 1.8px solid  #FFC529;
+    display: flexbox;
+    margin-left: 300px;
+}
+.container h4{
+    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+    font-size: 17px;
+    padding: 0.7px;
+    font-weight: 550;
+    color: #342d2d;
+    font-family: "Times New Roman", Times, serif;
+    /* font-family: "Lucida Console", "Courier New", monospace; */
+}
+.container text{
+    font-size: 0.9rem;
+}
+
+.rating1{
+   
+    margin: 0 auto;
+    padding: 10px 50px;
+   float: left;
+  
+}
+.rating1 label {
+    float: right;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.rating1 label:not(:first-of-type) {
+    padding-right: 2px;
+}
+
+.rating1 input {
+    display: none;
+}
+
+.rating1 label:before {
+    content: "\2605";
+    font-size: 42px;
+    color: #ccc;
+    line-height: 1;
+}
+.rating1 input:checked ~ label:before, .rating:not(:checked) > label:hover:before, .rating:not(:checked) > label:hover ~ label:before {
+    color: #f9df4a;
+}
+
+/* rating for quantity */
+.rating2{
+ 
+  
+    margin: 0 auto;
+    padding: 10px 50px;
+    float: left;
+}
+.rating2 label {
+    float: right;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.rating2 label:not(:first-of-type) {
+    padding-right: 2px;
+}
+
+.rating2 input {
+    display: none;
+}
+
+.rating2 label:before {
+    content: "\2605";
+    font-size: 42px;
+    color: #ccc;
+    line-height: 1;
+}
+.rating2 input:checked ~ label:before, .rating:not(:checked) > label:hover:before, .rating:not(:checked) > label:hover ~ label:before {
+    color: #f9df4a;
+}
+
+/* rating for quality */
+.rating3{
+ 
+   
+    margin: 0 auto;
+    padding: 10px 50px;
+   float: left;
+}
+.rating3 label {
+    float: right;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    
+}
+
+.rating3 label:not(:first-of-type) {
+    padding-right: 2px;
+}
+
+.rating3 input {
+    display: none;
+}
+
+.rating3 label:before {
+    content: "\2605";
+    font-size: 42px;
+    color: #ccc;
+    line-height: 1;
+}
+.rating3 input:checked ~ label:before, .rating:not(:checked) > label:hover:before, .rating:not(:checked) > label:hover ~ label:before {
+    color: #f9df4a;
+
+}
+
+.title_text input{
+    width: 34%;
+    border-radius: 10px;
+    border: 1.8px solid #FFC529;
+    color: rgb(23, 20, 20);
+    padding: 30px;
+    font-size: 20px;
+    margin-top: 50px;
+    margin-left: 8px;
+}
+.description textarea{
+    text-align: left;
+    padding: 15px;
+    margin-top: 14px;
+    margin-left: 8px;
+    border-radius: 10px;
+    border: 1.8px solid #FFC529;
+    background-color:white;
+    font-size: 20px;
+}
+
+form button{
+ 
+    float: right;
+    margin-right: 290px;
+    width: 15%;
+    font-size: 1rem;
+    background-color: #FFC529;
+    color: rgb(10, 10, 10);
+    padding: 14px 20px;
+    
+    border: none;
+    border-radius: 28.5px;
+    cursor: pointer;
+   
+    
+}
+
+.status
+{
+   display: inline;
+   
+   margin-left: 400px;
+   font-size: 1rem;
+}
+

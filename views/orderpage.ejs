@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order</title>
+  <link rel="stylesheet" href="/css/orderpage.css">
+</head>
+
+<body>
+  <nav class="navbar">
+
+    <!-- <div class="main-title"><a href="Homepagemain.html"  ><b>Cafeteria</b></a></div> -->
+    <div class="wrapper">
+      <label class="tog" for="toggler" style="color: black;">☰</label>
+      <input type="checkbox" id="toggler">
+      <div class="sidebar">
+        <ul class="menu">
+          <h1 style="font-size: 1.5rem;"><a href="#">Cafeteria</a></h1>
+
+          <li><a id="orderHistory">Order History</a></li>
+          <% vendordata.forEach(vendor=> { %>
+            <li><a href="/menu/<%= vendor._id %>">
+                <%= vendor.canteenName %>
+              </a></li>
+            <% }); %>
+              <li><a id="dailyuser">Daily order Analysis</a></li>
+              <li><a id="monthlyuser">Monthly order Analysis</a></li>
+              <li><a href="/addreview">Add Review </a></li>
+              <li><a href="/review">Reviews</a></li>
+        </ul>
+      </div>
+      <span class="main-title"><a href="#"><b>Cafeteria</b></a><span>
+          <span class="navbar-links">
+            <a href="/">Logout</a></li>
+          </span>
+
+
+
+  </nav>
+  <div>
+    <h1 class="ORDER">ORDER AND PAYMENT COMPLETION PAGE</h1>
+    <table style="width:60%;">
+      <tr class="firstrow">
+        <th>Sr. No</th>
+        <th>Item Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Canteen Name</th>
+        <!-- <th>QR Code</th> -->
+        <th colspan="2"></th>
+      </tr>
+      <%if (order && order.length> 0){%>
+        <%for(var i=0;i<order.length;i++){ %>
+          <tr>
+            <td><%=i+1%></td>
+            <td><%=order[i].name%></td>
+            <td><%=order[i].price*order[i].quantity%></td>
+            <td><%=order[i].quantity%></td>
+            <td><%=order[i].canteenName%></td>
+            <!-- <td><a href="<%=order[i].qrCode%>" style="color:darkblue;" alt="qrcode image">QR Code link</a></td> -->
+            <td><input type="button" class="minus" value="-" id="minus"
+                onclick="window.location.href = '/changem/<%=order[i]._id%>/<%=order[i].userId%>'"> </td>
+            <td><input type="button" class="plus" value="+" id="plus"
+                onclick="window.location.href = '/changep/<%=order[i]._id%>/<%=order[i].userId%>'"> </td>
+          </tr>
+          <%}%>
+            <%}%>
+
+    </table>
+
+    
+      <div style = " margin-left : 300px; margin-top:50px; font-size: 20px;">
+        <% vendordata.forEach(vendor => { %>
+          <% if (order && order.length > 0) { %>
+            <% var sum = 0; %>
+            <% for (var i = 0; i < order.length; i++) { %>
+              <% if (vendor._id.toString() === order[i].canteenId.toString()) { %>
+                <% sum += order[i].price * order[i].quantity; %>
+              <% } %>
+            <% } %>
+          <% } %>
+          <%= vendor.canteenName %> : <%=sum%> : <a href="<%= vendor.qrCode %>" style="color: darkblue;" alt="qrcode image"> QR </a><br>
+        <% }); %>
+        
+      </div>
+          
+      
+
+    <%if (order && order.length> 0){%>
+      <%var sum=0;%>
+        <%for(var i=0;i<order.length;i++){sum+=order[i].price*order[i].quantity;}%>
+          <div class="total" name="total">Total: <%=sum%>
+          </div>
+          <div>
+
+            <form method="POST" action="/finalorder/<%=order[0].userId%>" id="orderform">
+              <%if(order[0].role=="Professor"){%>
+                <div class="orderitem"> <label for="Delivery" name="delivery">Delivery Option:</label>
+                  <input type="checkbox" id="delivery" name="delivery">
+                </div>
+                <div class="orderitem">
+                  <label for="address" name="address">Address:</label>
+                  <input type="text" id="address" name="address" placeholder="Enter Address">
+                </div>
+                <%}%>
+                  <div class="orderitem">
+                    <label for="forfriend" name="friend">Order for friend?:</label>
+                    <input type="checkbox" id="friend" name="friend">
+                  </div>
+                  <!-- <div class="orderitem">
+                <label  for="phonenumber" name="phonenumber">Phone Number:</label>
+                <input type="tel" pattern="[1-9]{1}[0-9]{9}" id="phoneNumber" placeholder="999999999">
+               </div> -->
+                  <div class="orderitem">
+                    <label for="email" name="email">Email Address:</label>
+                    <input type="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" id="email" name="email"
+                      placeholder="abc@gmail.com">
+                  </div>
+
+                  <button type="submit" id="placeorder" style="font-size: 1.5rem;">Place Order</button>
+            </form>
+
+            <!-- <input type="hidden" id="order" value="<%=order%>">
+            <input type="hidden" id="total" name = "total" value="<%=sum%>"> -->
+          </div>
+          <%}%>
+
+            <script>
+              // Add event listener to the checkbox
+
+              window.onload = function () {
+                const userId = sessionStorage.getItem('userId');
+                const dailyUserLink = document.getElementById('dailyuser');
+                const monthlyUserLink = document.getElementById('monthlyuser');
+                const orderHistoryLink = document.getElementById('orderHistory');
+
+                dailyUserLink.addEventListener('click', function () {
+                  window.location.href = `/dailyuser/${userId}`;
+                });
+
+                monthlyUserLink.addEventListener('click', function () {
+                  window.location.href = `/monthlyuser/${userId}`;
+                });
+
+                orderHistoryLink.addEventListener('click', function () {
+                  window.location.href = `/orderHistory/${userId}`;
+                });
+              };
+              const friendCheckbox = document.getElementById('friend');
+              const emailInput = document.getElementById('email');
+
+              friendCheckbox.addEventListener('change', function () {
+                if (this.checked) {
+                  emailInput.required = true;
+                  emailInput.disabled = false;
+                } else {
+                  emailInput.required = false;
+                  emailInput.disabled = true;
+                }
+              });
+            </script>
+
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Review</title>
+    <link rel="stylesheet" href="/css/addreviewpage.css">
+    
+</head>
+<body>
+    <nav class="navbar">
+        <div class="main-title"  href="/addreview" ><a href="#"  ><b>Cafeteria</b></a></div>
+        <div class="navbar-links">
+            <ul>
+                <li><a href="/signup">LOGOUT</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+   <h1 class="title" >ADD REVIEW PAGE</h1>
+   <form id = "submit" action="/submit" onsubmit = "return answer()" method="post">
+   
+   <div class="container">
+ <input type="hidden" name ="id" id = "id">
+    <div class="rating1">
+        <h4 class="con">Quality:</h4>
+        <input type="radio" id="star5" name="rating1" value="5" />
+        <label for="star5"></label>
+        <input type="radio" id="star4" name="rating1" value="4" />
+        <label for="star4"></label>
+        <input type="radio" id="star3" name="rating1" value="3" />
+        <label for="star3"></label>
+        <input type="radio" id="star2" name="rating1" value="2" />
+        <label for="star2"></label>
+        <input type="radio" id="star1" name="rating1" value="1" />
+        <label for="star1"></label>
+        <br>
+        <text id="rating-val1" name="rat1">(0)</text>
+    </div>
+   
+    <div class="rating2">
+        <h4 class="con">Quantity:</h4>
+        <input type="radio" id="star10" name="rating2" value="5" />
+        <label for="star10"></label>
+        <input type="radio" id="star9" name="rating2" value="4" />
+        <label for="star9"></label>
+        <input type="radio" id="star8" name="rating2" value="3" />
+        <label for="star8"></label>
+        <input type="radio" id="star7" name="rating2" value="2" />
+        <label for="star7"></label>
+        <input type="radio" id="star6" name="rating2" value="1" />
+        <label for="star6"></label>
+        <br>
+        <text id="rating-val2" name="rat1">(0)</text>
+    </div>
+    
+    <div class="rating3">
+        <h4 class="con">Price:</h4>
+        <input type="radio" id="star15" name="rating3" value="5" />
+        <label for="star15"></label>
+        <input type="radio" id="star14" name="rating3" value="4" />
+        <label for="star14"></label>
+        <input type="radio" id="star13" name="rating3" value="3" />
+        <label for="star13"></label>
+        <input type="radio" id="star12" name="rating3" value="2" />
+        <label for="star12"></label>
+        <input type="radio" id="star11" name="rating3" value="1" />
+        <label for="star11"></label>
+        <br>
+        <text id="rating-val3">(0)</text>
+        
+    </div>
+    <br>
+    
+
+   </div>
+   
+   
+    <div class="title_text"><label for="REVIEW"></label>
+        <input type="text" name="title" id="review" placeholder="Enter title"></div>
+    <div class="description"><label for="description"></label>
+        <textarea name="description" id="textarea" cols="40" rows="13" placeholder="Enter Description of Review "></textarea></div>
+        <br>
+        <!-- <div class="status">
+            <span style="font-size: 1.1rem ;">Review-status:</span>
+           <span> <input type="checkbox" name="status" value="Pending"></span>
+           <span>pending</span> 
+        </div> -->
+        <div class="bttn">
+            <button type="submit">SUBMIT</button>
+        </div>
+     </form>
+     
+
+     <script>
+        window.onload = function() {
+        const userId = sessionStorage.getItem('userId');
+        const form = document.getElementById('submit');
+        const idele = document.getElementById('id');
+        idele.value = userId;
+        //console.log(idele.value);
+        };
+     </script>
+   	<script src="/js/addreviewpage.js"></script>
+    </body>
+</html>

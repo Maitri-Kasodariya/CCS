@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Monthly</title>
+    <link rel="stylesheet" href="/css/vendormonthly.css">
+    <style>
+        .most-ordered-items,
+        .least-ordered-items {
+            margin-top: 20px;
+        }
+
+        .most-ordered-items ul,
+        .least-ordered-items ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .most-ordered-items li,
+        .least-ordered-items li {
+            margin-bottom: 10px;
+        }
+    </style>
+    <title>MonthlyAnalysis</title>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="main-title"><a href="#"><b>Cafeteria</b></a></div>
+        <div class="navbar-links">
+            <ul>
+                <li><a href="/">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <h2>Shine Star Order Monthly Analysis</h2>
+    <table>
+        <tr>
+            <th>Sr.No.</th>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+
+        <% let mostOrderedItems=[]; let leastOrderedItems=[]; let maxQuantity=0; let minQuantity=Infinity; for (let i=0;
+            i < data.length; i++) { const currentItem=data[i]; if (currentItem.totalQuantity> maxQuantity) {
+            maxQuantity = currentItem.totalQuantity;
+            mostOrderedItems = [currentItem._id];
+            } else if (currentItem.totalQuantity === maxQuantity) {
+            mostOrderedItems.push(currentItem._id);
+            }
+
+            if (currentItem.totalQuantity < minQuantity) { minQuantity=currentItem.totalQuantity;
+                leastOrderedItems=[currentItem._id]; } else if (currentItem.totalQuantity===minQuantity) {
+                leastOrderedItems.push(currentItem._id); } %>
+                <tr>
+                    <td>
+                        <%= i+1 %>
+                    </td>
+                    <td>
+                        <%= currentItem._id %>
+                    </td>
+                    <td>
+                        <%= currentItem.totalQuantity %>
+                    </td>
+                    <td>
+                        <%= currentItem.totalPrice %>
+                    </td>
+                </tr>
+                <% } %>
+
+    </table>
+
+    <div class="total" style="margin-top: 50px;">Total Revenue: <%= totalPrice %>
+    </div>
+    <div class="con">
+        <div class="most-ordered-items">
+            <span style="font-weight: bold;color: darkblue;">Most Ordered Item:</span>
+            <ul>
+                <% mostOrderedItems.forEach(item=> { %>
+                    <li>
+                        <%= item %>
+                    </li>
+                    <% }); %>
+            </ul>
+        </div>
+
+        <div class="least-ordered-items">
+            <span style="font-weight: bold;color: darkblue;">Least Ordered Item:</span>
+            <ul>
+                <% leastOrderedItems.forEach(item=> { %>
+                    <li>
+                        <%= item %>
+                    </li>
+                    <% }); %>
+            </ul>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

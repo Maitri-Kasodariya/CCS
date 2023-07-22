@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/orderHistory.css">
+    <title>Order History</title>
+</head>
+<body>
+    <!-- Sidebar -->
+    <% function formatDate(dateTime) { %>
+      <% const date = new Date(dateTime); %>
+      <% const formattedDate = date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }); %>
+      <%= formattedDate %>
+    <% } %>
+    
+    <% function formatTime(dateTime) { %>
+      <% const date = new Date(dateTime); %>
+      <% const formattedTime = date.toLocaleTimeString('en-US', {
+        hour12: true,
+        hour: '2-digit',
+        minute: '2-digit'
+      }); %>
+      <%= formattedTime %>
+    <% } %>
+
+
+    <nav class="navbar">
+     
+        <!-- <div class="main-title"><a href="Homepagemain.html"  ><b>Cafeteria</b></a></div> -->
+        <div class="wrapper">
+          <label for="toggler" style="color: black;">☰</label>
+          <input type="checkbox" id="toggler">
+          <div class="sidebar">
+             <ul class="menu">
+                <h1 style="font-size: 1.5rem;"><a href="#">Cafeteria</a></h1>
+                <li><a id="orderHistory">Order History</a></li>
+                <% vendordata.forEach(vendor => { %>
+                  <li><a href="/menu/<%= vendor._id %>"><%= vendor.canteenName %></a></li>
+                  <% }); %>
+                <li><a id="dailyuser">Daily order Analysis</a></li>
+                <li><a id="monthlyuser">Monthly order Analysis</a></li>
+                <li><a href="/addreview">Add Review </a></li>
+                <li><a href="/review">Reviews</a></li>
+             </ul>
+          </div>
+          <span class="main-title"><a href="#"  ><b>Order History</b></a><span>
+        <span class="navbar-links">
+                <a href="/">Logout</a></li>
+          </span>
+    </nav>
+    <div class="maintitle">
+       <p><b>Order History of User</b></p>
+    </div>
+    <% if (orderData.length === 0) { %>
+      <p style="font-size: 1.5rem;margin-left: 100px; color: red;">No orders for this month.</p>
+
+    <% } else { %>
+      <table class="reviews-table">
+        <thead>
+          <tr class="first">
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Token</th>
+            <th>Status</th>
+            <th>Role</th>
+            <th>Canteen Name</th>
+            <th>QR Code</th>
+            <th >Order time</th>
+            <th>Order date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% orderData.forEach(order => { %>
+            <tr>
+              <td><%= order.name %></td>
+              <td><%= order.price %></td>
+              <td><%= order.quantity %></td>
+              <td><%= order.token %></td>
+              <td><%= order.status %></td>
+              <td><%= order.role %></td>
+              <td><%= order.canteenName %></td>
+              <td><a class="qr" href="<%= order.qrCode %>" >QR</a></td>
+              <td width="10%"><%= new Date(order.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %></td>
+              <td width="20%"><%= new Date(order.date).toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' }) %></td>
+              <td><a href="/reorder/ <%= order._id %>">Reorder</a></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } %>
+    
+    <script>
+     
+      window.onload = function() {
+          const userId=sessionStorage.getItem('userId');
+          const dailyUserLink = document.getElementById('dailyuser');
+          const monthlyUserLink = document.getElementById('monthlyuser');
+          const orderHistoryLink = document.getElementById('orderHistory');
+
+          dailyUserLink.addEventListener('click', function() {
+              window.location.href = `/dailyuser/${userId}`;
+          });
+
+          monthlyUserLink.addEventListener('click', function() {
+              window.location.href = `/monthlyuser/${userId}`;
+          });
+
+          orderHistoryLink.addEventListener('click', function() {
+              window.location.href = `/orderHistory/${userId}`;
+          });
+      };
+      </script>
+</body>
+</html>

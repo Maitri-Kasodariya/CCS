@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Menu Item</title>
+   <link rel="stylesheet" href="/css/addmenu.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="main-title"><a href="#"  ><b>Add Menu</b></a></div>
+        <div class="navbar-links">
+            <ul>
+                <li><a href="/">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <h1>Add Menu Item</h1>
+    &nbsp;&nbsp;&nbsp;
+    <form action="/showmenu/<%= canteenId %>/">
+        <button type="submit" class="bt">Show Menu</button>
+    </form>
+    
+    <form method="POST" action="/canteens/<%= canteenId %>/menu/add">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" ><br><br>
+
+        <label for="time">Time:</label>
+        <input type="number" id="time" name="time" ><br><br>
+
+        <label for="category">Category:</label>
+        <input type="text" id="category" name="category" ><br><br>
+
+        <button type="submit">Add Menu Item</button>
+    
+    
+        
+    </form>
+   
+</body>
+</html>

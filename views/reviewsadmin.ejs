@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Admin</title>
+    <link rel="stylesheet" href="/css/reviewsadmin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  
+    <nav class="navbar">
+     
+        <!-- <div class="main-title"><a href="Homepagemain.html"  ><b>Cafeteria</b></a></div> -->
+        <div class="wrapper">
+          <label for="toggler" style="color: black;">☰</label>
+          <input type="checkbox" id="toggler">
+          <div class="sidebar">
+             <ul class="menu">
+                <h1 style="font-size: 1.5rem;"><a href="/mainhome">cafeteria</a></h1>
+  
+                <li><a href="/vendorform">Vendor Forms</a></li>
+                <li><a href="/reviewadmin">All reviews</a></li>
+             </ul>
+          </div>
+          <span class="main-title"><a href="/reviewadmin"  ><b>Review Page</b></a><span>
+        <span class="navbar-links">
+                <a href="/">Logout</a></li>
+          </span>
+    </nav>
+    <div>
+        <h2 class="reviewt">Student Reviews List</h2>
+
+        <% if (reviews.length === 0) { %>
+          <p>No reviews found.</p>
+        <% } else { %>
+          <table class="reviews-table">
+            <thead>
+              <tr class="mainrow">
+                <th>Review</th>
+                <th>Rating </th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% reviews.forEach((review) => { %>
+                <tr>
+                  <td class="title-description-col">
+                    <h2><%= review.title %></h2>
+                    <p><%= review.description %></p>
+                  </td>
+                  <td>
+                    <span class="star-rating">
+                      Quality:&nbsp;&nbsp;&nbsp;
+                 <% for (let i = 1; i <= 5; i++) { %>
+                   <% if (i <= review.rating1) { %>
+                     <i class="star checked fas fa-star"></i>
+                   <% } else { %>
+                     <i class="star fas fa-star"></i>
+                   <% } %>
+                 <% } %>
+                     </span>
+                   
+       
+                     <span class="star-rating">Quantity:
+                     <% for (let i = 1; i <= 5; i++) { %>
+                       <% if (i <= review.rating2) { %>
+                         <i class="star checked fas fa-star"></i>
+                       <% } else { %>
+                         <i class="star fas fa-star"></i>
+                       <% } %>
+                     <% } %>
+                 </span>
+                     
+                   
+                     <span class="star-rating">
+                         Price:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                         <% for (let i = 1; i <= 5; i++) { %>
+                           <% if (i <= review.rating3) { %>
+                             <i class="star checked fas fa-star"></i>
+                           <% } else { %>
+                             <i class="star fas fa-star"></i>
+                           <% } %>
+                         <% } %>
+                     </span>
+                  </td>
+                 
+                  
+                  <td><%= review.status %></td>
+                  <td>
+                        <li style="list-style: none;">
+                          <!-- Display review details -->
+                      
+                          <% if (review.status === 'Pending') { %>
+                            <form action="/accept" onsubmit = "return answer()"method="POST">
+                              <input type="hidden" name="reviewId" value="<%= review._id %>">
+                              <button type="submit" class="done">&nbsp;Done&nbsp;</button>
+                            </form>
+                            <form action="/reject"onsubmit = "return answer()" method="POST">
+                              <input type="hidden" name="reviewId" value="<%= review._id %>">
+                              <button type="submit" class="reject">Reject</button>
+                            </form>
+                          <% } else if (review.status === 'Reject') { %>
+                            <form action="/accept" onsubmit = "return answer()"method="POST">
+                              <input type="hidden" name="reviewId" value="<%= review._id %>">
+                              <button type="submit" class="done">&nbsp;Done&nbsp;</button>
+                            </form>
+                          <% } else if (review.status === 'Done') { %>
+                            <form action="/reject" onsubmit = "return answer()"method="POST">
+                              <input type="hidden" name="reviewId" value="<%= review._id %>">
+                              <button type="submit" class="reject">Reject</button>
+                            </form>
+                          <% } %>
+                        </li>
+                     
+                  </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        <% } %>
+        
+    <script>
+      function answer()
+{
+  alert("Your status is updated succesfully.");
+}
+
+
+    </script>
+      </body>
+      </html>
+       
+      
+  

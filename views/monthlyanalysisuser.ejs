@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/monthlyanalysisuser.css">
+    <title>Monthly Analysis User</title>
+</head>
+<body>
+    <nav class="navbar">
+     
+        <!-- <div class="main-title"><a href="Homepagemain.html"  ><b>Cafeteria</b></a></div> -->
+        <div class="wrapper">
+          <label for="toggler" style="color: black;">☰</label>
+          <input type="checkbox" id="toggler">
+          <div class="sidebar">
+             <ul class="menu">
+                <h1 style="font-size: 1.5rem;"><a href="#">Cafeteria</a></h1>
+                <li><a id="orderHistory">Order History</a></li>
+                <% vendordata.forEach(vendor => { %>
+                    <li><a href="/menu/<%= vendor._id %>"><%= vendor.canteenName %></a></li>
+                <% }); %>
+                
+                <li><a id="dailyuser">Daily order Analysis</a></li>
+                <li><a id="monthlyuser">Monthly order Analysis</a></li>
+                <li><a href="/addreview">Add Review </a></li>
+                <li><a href="/review">Reviews</a></li>
+             </ul>
+          </div>
+          <span class="main-title"><a href="#"  ><b>Monthly analysis of user</b></a><span>
+        <span class="navbar-links">
+                <a href="/">Logout</a></li>
+          </span>
+    </nav>
+    <div class="maintitle">
+      
+      <h1>  <span>Order Details of&nbsp;</span><span id="current_date"></span></h1>
+    </div>
+    
+    <% if (orderData.length === 0) { %>
+        <p style="font-size: 1.5rem;margin-left: 100px; color: red;">No orders for this month.</p>
+    <% } else { %>
+        <table class="reviews-table">
+            <thead>
+                <tr class="first">
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Token</th>
+                    <th>Status</th>
+                    <th>Role</th>
+                    <th>Canteen Name</th>
+                    <th>Order time</th>
+                    <th>Order date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% 
+                var totalPrice = 0; // Initialize the total price variable
+                var itemFrequency = {}; // Object to store item frequencies
+                
+                orderData.forEach(order => { %>
+                    <tr>
+                        <td><%= order.name %></td>
+                        <td><%= order.price %></td>
+                        <td><%= order.quantity %></td>
+                        <td><%= order.token %></td>
+                        <td><%= order.status %></td>
+                        <td><%= order.role %></td>
+                        <td><%= order.canteenName %></td>
+                        <td><%= new Date(order.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %></td>
+                        <td><%= new Date(order.date).toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' }) %></td>
+                    </tr>
+                    
+                    <% 
+                    totalPrice += order.price; // Add the current order's price to the total price
+                    
+                    if (itemFrequency.hasOwnProperty(order.name)) {
+                        itemFrequency[order.name] += order.quantity; // Increment the quantity of the item
+                    } else {
+                        itemFrequency[order.name] = order.quantity; // Initialize the quantity of the item
+                    }
+                }); %>
+            </tbody>
+        </table>
+        
+        <!-- Display the total price -->
+        <p class="total">Total Amount: <button id="addreviewbutton"><%= totalPrice %></button></p>
+        
+        <!-- Display most ordered item -->
+        <% 
+        var mostOrderedItem = Object.keys(itemFrequency).reduce((a, b) => itemFrequency[a] > itemFrequency[b] ? a : b);
+        %>
+        <% 
+        var leastOrderedItem = Object.keys(itemFrequency).reduce((a, b) => itemFrequency[a] < itemFrequency[b] ? a : b);
+        %>
+        <p class="mostorder">Most Ordered Item: <button id="addreviewbutton"><%= mostOrderedItem %></button>&nbsp;&nbsp Least Ordered Item: <button id="addreviewbutton"><%= leastOrderedItem %></button></p>
+        
+        <!-- Display least ordered item -->
+        
+        <!-- <p class="leastorder"></button></p> -->
+        
+    <% } %>
+    
+  <script>
+     window.onload = function() {
+            const userId=sessionStorage.getItem('userId');
+            const dailyUserLink = document.getElementById('dailyuser');
+            const monthlyUserLink = document.getElementById('monthlyuser');
+            const orderHistoryLink = document.getElementById('orderHistory');
+
+            dailyUserLink.addEventListener('click', function() {
+                window.location.href = `/dailyuser/${userId}`;
+            });
+
+            monthlyUserLink.addEventListener('click', function() {
+                window.location.href = `/monthlyuser/${userId}`;
+            });
+
+            orderHistoryLink.addEventListener('click', function() {
+                window.location.href = `/orderHistory/${userId}`;
+            });
+        };
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+
+const d = new Date();
+
+document.getElementById("current_date").innerHTML = monthNames[d.getMonth()]
+
+
+
+</script>
+</body>
+</html>

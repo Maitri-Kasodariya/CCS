@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/vendordaily.css">
+    <title>Daily Analysis Vendor</title>
+</head>
+<body>
+    
+    <nav class="navbar">
+        <div class="main-title"><a href="#"  ><b>Cafeteria</b></a></div>
+        <div class="navbar-links">
+            <ul>
+                <li><a href="/">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    
+    <h2>Daily Order Analysis</h2>
+    <table>
+        <tr>
+            <th>Sr.No.</th>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+       
+            <%for(var i=0;i<data.length;i++){%>
+            <tr>
+            <td><%=i+1%></td>
+            <td><%=data[i]._id%></td>
+            <td><%=data[i].totalQuantity%></td>
+            <td><%=data[i].totalPrice%></td>
+            </tr>
+            <%}%>
+        
+    </table>
+
+        <div class="tot">Total Revenue : <%=totalPrice%></div>
+
+</body>
+</html>

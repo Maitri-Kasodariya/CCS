@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Form</title>
+    <link rel="stylesheet" href="/css/vendorform.css">
+   
+</head>
+<body>
+   
+  <nav class="navbar">
+     
+    <!-- <div class="main-title"><a href="Homepagemain.html"  ><b>Cafeteria</b></a></div> -->
+    <div class="wrapper">
+      <label for="toggler" style="color: black;">☰</label>
+      <input type="checkbox" id="toggler">
+      <div class="sidebar">
+         <ul class="menu">
+            <h1 style="font-size: 1.5rem;"><a href="/mainhome">cafeteria</a></h1>
+
+            <li><a href="/vendorform">Vendor Forms</a></li>
+            <li><a href="/reviewadmin">All reviews</a></li>
+         </ul>
+      </div>
+      <span class="main-title"><a href="/vendorform"  ><b>Vendor Forms Page</b></a><span>
+    <span class="navbar-links">
+            <a href="/">Logout</a></li>
+      </span>
+</nav>
+   <h1 class="reviewt" >VENDOR FORM PAGE</h1>
+   <table class="reviews-table">
+    <thead>
+      <tr class="first">
+        <th>canteen Name</th>
+        <th>Email</th>
+        <th>Name</th>
+        <th>Contact Number</th>
+        <th>Address</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% vendors.forEach(function(vendor) { %>
+        <tr>
+          <td><%= vendor.canteenName %></td>
+          <td><%= vendor.email %></td>
+          <td><%= vendor.firstName %> <%= vendor.lastName %></td>
+          <td><%= vendor.phoneNumber %></td>
+          <td><%= vendor.addressOrDescription %></td>
+          <td><%= vendor.status %></td>
+          <td class="action-buttons">
+            <% if (vendor.status === 'Pending') { %>
+              <form action="/approve"onsubmit = "return answer()" method="POST">
+                <input type="hidden" name="vendorId" value="<%= vendor._id %>">
+                <button type="submit" class="done">Approve</button>
+              </form>
+              <form action="/rejected" onsubmit = "return answer()"method="POST">
+                <input type="hidden" name="vendorId" value="<%= vendor._id %>">
+                <button type="submit" class="reject">Reject</button>
+              </form>
+            <% } else if (vendor.status === 'Rejected') { %>
+              <form action="/approve"onsubmit = "return answer()" method="POST">
+                <input type="hidden" name="vendorId" value="<%= vendor._id %>">
+                <button type="submit" class="done">Approve</button>
+              </form>
+            <% } else if (vendor.status === 'Approved') { %>
+              <form action="/rejected"onsubmit = "return answer()" method="POST">
+                <input type="hidden" name="vendorId" value="<%= vendor._id %>">
+                <button type="submit" class="reject">Reject</button>
+              </form>
+            <% } %>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+  <script>
+    function answer()
+  {
+    alert("Your status is updated succesfully.");
+  }
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews</title>
+    <link rel="stylesheet" href="/css/reviewmain.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+     
+        <!-- <div class="main-title"><a href="Homepagemain.html"  ><b>Cafeteria</b></a></div> -->
+        <div class="wrapper">
+          <label for="toggler" style="color: black;">☰</label>
+          <input type="checkbox" id="toggler">
+          <div class="sidebar">
+             <ul class="menu">
+                <h1 style="font-size: 1.5rem;"><a href="/mainhome">cafeteria</a></h1>
+                <li><a id="orderHistory">Order History</a></li>
+                <% vendordata.forEach(vendor => { %>
+                  <li><a href="/menu/<%= vendor._id %>"><%= vendor.canteenName %></a></li>
+                  <% }); %>
+                <li><a id="dailyuser">Daily order Analysis</a></li>
+                <li><a id="monthlyuser">Monthly order Analysis</a></li>
+                <li><a href="/addreview">Add Review </a></li>
+                <li><a href="/review">Reviews</a></li>
+             </ul>
+          </div>
+          <span class="main-title"><a href="/review"  ><b>Review Page</b></a><span>
+        <span class="navbar-links">
+                <a href="/">Logout</a></li>
+          </span>
+    </nav>
+    <div>
+        <h2 class="reviewt">Student Reviews</h2>
+
+ <button id="addreviewbutton"><a href="/addreview" id="addreview">Add Review</a></button>
+<% if (reviews.length === 0) { %>
+  <p>No reviews found.</p>
+<% } else { %>
+  <table class="reviews-table">
+    <thead>
+      <tr class="first"> 
+        <th class="title-description-col" style="font-size: 1.5rem;">Title & Description</th>
+        <th class="rating-col"style="font-size: 1.5rem;">Ratings</th>
+        <th class="status-col"style="font-size: 1.5rem;">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% reviews.forEach((review) => { %>
+        <tr>
+          <td class="title-description-col">
+            <h2><%= review.title %></h2>
+            <p><%= review.description %></p>
+          </td>
+          <td class="rating-col">
+            <div class="star-rating">
+              <div class="flex">
+                <p>Quantity:
+                  <% for (let i = 1; i <= 5; i++) { %>
+                    <% if (i <= review.rating1) { %>
+                      <i class="star checked fas fa-star"></i>
+                    <% } else { %>
+                      <i class="star fas fa-star"></i>
+                    <% } %>
+                  <% } %>
+                </p>
+              </div> 
+              <div class="flex">
+                <p>Quality:
+                  <% for (let i = 1; i <= 5; i++) { %>
+                    <% if (i <= review.rating2) { %>
+                      <i class="star checked fas fa-star"></i>
+                    <% } else { %>
+                      <i class="star fas fa-star"></i>
+                    <% } %>
+                  <% } %>
+                </p>
+              </div>
+              <div class="flex">
+                <p>Price:
+                  <% for (let i = 1; i <= 5; i++) { %>
+                    <% if (i <= review.rating3) { %>
+                      <i class="star checked fas fa-star"></i>
+                    <% } else { %>
+                      <i class="star fas fa-star"></i>
+                    <% } %>
+                  <% } %>
+                </p>
+              </div>
+            </div>
+          </td>
+          <td class="status-col">
+            <%= review.status %>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+<% } %>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+<script>
+    window.onload = function() {
+            const userId=sessionStorage.getItem('userId');
+            const dailyUserLink = document.getElementById('dailyuser');
+            const monthlyUserLink = document.getElementById('monthlyuser');
+            const orderHistoryLink = document.getElementById('orderHistory');
+
+            dailyUserLink.addEventListener('click', function() {
+                window.location.href = `/dailyuser/${userId}`;
+            });
+
+            monthlyUserLink.addEventListener('click', function() {
+                window.location.href = `/monthlyuser/${userId}`;
+            });
+
+            orderHistoryLink.addEventListener('click', function() {
+                window.location.href = `/orderHistory/${userId}`;
+            });
+        };
+</script>
+</body>
+</html>

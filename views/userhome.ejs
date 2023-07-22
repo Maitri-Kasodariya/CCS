@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/userhome.css">
+    <title>User Home</title>
+</head>
+<body>
+    <!-- Sidebar -->
+   
+    <nav class="navbar">
+     
+        <!-- <div class="main-title"><a href="Homepagemain.html"  ><b>Cafeteria</b></a></div> -->
+        <div class="wrapper">
+          <label for="toggler" style="color: black;">☰</label>
+          <input type="checkbox" id="toggler">
+          <div class="sidebar">
+             <ul class="menu">
+                <h1 style="font-size: 1.5rem;"><a href="#">Cafeteria</a></h1>
+                <li><a id="orderHistory">Order History</a></li>
+                <% for(var i=0;i<bodydata.data.length;i++){ %>
+                <li><a id="route"href="/menu/<%=bodydata.data[i]._id%>"><%=bodydata.data[i].canteenName%></a></li>
+                <% } %>
+                <li><a id="dailyuser">Daily order Analysis</a></li>
+                <li><a id="monthlyuser">Monthly order Analysis</a></li>
+                <li><a href="/addreview">Add Review </a></li>
+                <li><a href="/review">Reviews</a></li>
+             </ul>
+          </div>
+          <span class="main-title"><a href="#"  ><b>User Home</b></a><span>
+        <span class="navbar-links">
+                <a href="/">Logout</a></li>
+          </span>
+    </nav>
+
+    <div class = "sec1">
+    <div class="tagline">Select the Canteen<br> you want to order from</div>
+    
+    </div>
+
+    <div class="sec2">
+        <% for(var i=0;i<bodydata.data.length;i++){ %>
+        <div class="card">
+            <div class="icon"><a id="route"href="/menu/<%=bodydata.data[i]._id%>"><img src="/img/img<%=i%>.jpg" alt="dosa image"></a></div>
+            <h2><a id="route" href="/menu/<%=bodydata.data[i]._id%>"><%=bodydata.data[i].canteenName%></a></h2>
+            <div class = "bar"><div class = "nbar" style="width:<%=bodydata.data[i].bar%>%;"><%=bodydata.data[i].bar%>%</div></div>
+        </div>
+        <% } %>
+        <input type="hidden" id="userid" value="<%=bodydata.id%>">
+        <!--
+            <div class="card">
+                <div class="icon"><a href="canteen1_shinestar.html"><img src="img/Dosa.jpg" alt="dosa image"></a></div>
+                <h2><a href="canteen1_shinestar.html">Shine star</a></h2>
+                <div class = "bar"><div class = "nbar"  style="width:50%;">50%</div></div>
+            </div>
+            <div class="card">
+                <div class="icon"><a href="canteen1_shinestar.html"><img src="img/Dosa.jpg" alt="dosa image"></a></div>
+                <h2><a href="canteen1_shinestar.html">Honey One Foods</a></h2>
+                <div class = "bar"><div class = "nbar"  style="width:50%;">50%</div></div>
+            </div>
+            <div class="card">
+                <div class="icon"><a href="canteen1_shinestar.html"><img src="img/Dosa.jpg" alt="dosa image"></a></div>
+                <h2><a href="canteen1_shinestar.html">K PLus Plus</a></h2>
+                <div class = "bar"><div class = "nbar"  style="width:50%;">50%</div></div>
+            </div>
+        -->
+        
+    </div>
+    <script>
+        const userId = document.getElementById('userid').value;
+        window.onload = function() {
+            sessionStorage.setItem('userId', userId);
+            const dailyUserLink = document.getElementById('dailyuser');
+            const monthlyUserLink = document.getElementById('monthlyuser');
+            const orderHistoryLink = document.getElementById('orderHistory');
+
+            dailyUserLink.addEventListener('click', function() {
+                window.location.href = `/dailyuser/${userId}`;
+            });
+
+            monthlyUserLink.addEventListener('click', function() {
+                window.location.href = `/monthlyuser/${userId}`;
+            });
+
+            orderHistoryLink.addEventListener('click', function() {
+                window.location.href = `/orderHistory/${userId}`;
+            });
+        };
+    </script>
+</body>
+</html>

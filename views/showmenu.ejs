@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title >Canteen Menu</title>
+    <link rel="stylesheet" href="/css/showmenu.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="main-title"><a href="/back/<%=canteenId%>"  ><b>Vendor Home</b></a></div>
+        <div class="navbar-links">
+            <ul>
+                <li><a href="/">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <h1 class="title">Canteen Menu</h1>
+   
+    <button onclick="window.location.href='/addmen/<%= canteenId%>'" class="btn">Add Menu</button>
+   
+    <% if (menuItems.length === 0) { %>
+        <p>No menu items found for the canteen.</p>
+    <% } else { %>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Time</th>
+                <th>Category</th>
+               <th></th>
+            </tr>
+            <% menuItems.forEach(function(item) { %>
+                <tr>
+                    <td><%= item.name %></td>
+                    <td><%= item.price %></td>
+                    <td><%= item.time %></td>
+                    <td><%= item.category %></td>
+                    <td><button onclick="window.location.href='/deletemenuitem/<%= item._id%>/<%=canteenId%>'" class="btn btn1">Delete</button></td>
+                   
+                </tr>
+            <% }); %>
+        </table>
+    <% } %>
+</body>
+</html>

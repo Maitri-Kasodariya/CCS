@@ -1,0 +1,170 @@
+:root {
+    --timing-func: cubic-bezier(.02,.78,.31,1.17);
+  }
+  
+  html {
+    font-size: 16px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  
+  .wrapper {
+    padding: 2rem;
+   
+  }
+  
+  input {
+    display: none;
+  }
+  
+  label {
+    border-radius: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    user-select: none;
+    position: fixed;
+    z-index: 2;
+    left: 1rem;
+    top: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: #efefef;
+  }
+  label:hover {
+    background: #cccccc;
+  }
+  
+  .wrapper:has(input:checked) label {
+    background: #444444;
+    color: white;
+  }
+  
+  .menu {
+    width: min(250px, 100vw);
+  }
+  
+  .sidebar {
+    display: inline-block;
+    overflow: hidden;
+    background: #FE724C;
+    padding-top: 4rem;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    max-width: 0;
+    transition: all 0.2s var(--timing-func);
+  }
+  .menu li{
+    padding: 10px;
+    /* border:1px solid #efefef; */
+    list-style: none;
+     color: #ffffff;
+     font-size: 1.2rem;
+    margin: 10px;
+
+  }
+  .menu li:hover{
+   background-color:black;
+   border-radius: 2px;
+  }
+  
+  #toggler:checked + .sidebar {
+    max-width: min(250px, 80vw);
+  }
+  * {
+    box-sizing:border-box;
+}
+
+body{
+    margin :0;
+    padding: 0;
+}
+
+.navbar{
+    
+    justify-content:space-between;
+    align-items: center;
+    background-color: #FE724C;
+    color:white;
+    padding-bottom: 5px;
+}
+.main-title a{
+   font-size: 2rem;
+    margin-left: 50px;
+    text-decoration:none;
+    color:white ;
+    float: left;
+   
+}
+.navbar-links a{
+ 
+    display: flex;
+    margin-right: 8px;
+    list-style: none;
+    font-size: 1.5rem;
+    float: right; 
+    text-decoration: none;
+    color: white;
+   
+    display: block;
+  
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-bottom: 500px;
+ }
+  a{
+   text-decoration: none;
+   color:white;
+ }
+
+ 
+
+.dropdown button:hover{
+  background-color: rgba(240, 224, 49, 0.373);
+}
+tr a{
+  background-color:  #FFC529;
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 10px;
+  margin:5px;
+}
+a:hover{
+  cursor: pointer;
+}
+
+.maintitle{
+  align-items: center;
+  font-size: 1.5rem;
+  padding: 5px;
+  margin: 10px;
+  font-family: 'Times New Roman', Times, serif;
+  color: black;
+
+}
+.reviews-table th {
+  background-color: #FFC529;
+}
+.reviews-table {
+  width: 65%;
+  border-collapse: collapse;
+  font-family:'Times New Roman', Times, serif;
+  align-content: center;
+  margin-left: 250px;
+  margin-top: 50px;
+}
+
+.reviews-table th,
+.reviews-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 2px solid #FFC529;
+ 
+ 
+  
+}
+.qr{
+  color:darkblue;
+  background-color: #ffffff;
+  font-size: 15px;
+}

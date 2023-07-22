@@ -1,0 +1,189 @@
+:root {
+    --timing-func: cubic-bezier(.02,.78,.31,1.17);
+  }
+  
+  html {
+    font-size: 16px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  
+  .wrapper {
+    padding: 2rem;
+   
+  }
+  
+  input {
+    display: none;
+  }
+  
+  label {
+    border-radius: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    user-select: none;
+    position: fixed;
+    z-index: 2;
+    left: 1rem;
+    top: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: #efefef;
+  }
+  label:hover {
+    background: #cccccc;
+  }
+  
+  .wrapper:has(input:checked) label {
+    background: #444444;
+    color: white;
+  }
+  
+  .menu {
+    width: min(250px, 100vw);
+  }
+  
+  .sidebar {
+    display: inline-block;
+    overflow: hidden;
+    background: #FE724C;
+    padding-top: 4rem;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    max-width: 0;
+    transition: all 0.2s var(--timing-func);
+  }
+  .menu li{
+    padding: 10px;
+    /* border:1px solid #efefef; */
+    list-style: none;
+     color: #ffffff;
+     font-size: 1.2rem;
+    margin: 10px;
+
+  }
+  .menu li:hover{
+   background-color:black;
+   border-radius: 2px;
+  }
+  
+  #toggler:checked + .sidebar {
+    max-width: min(250px, 80vw);
+  }
+  * {
+    box-sizing:border-box;
+}
+
+body{
+    margin :0;
+    padding: 0;
+}
+
+.navbar{
+    
+    justify-content:space-between;
+    align-items: center;
+    background-color: #FE724C;
+    color:white;
+    padding-bottom: 5px;
+}
+.main-title a{
+   font-size: 2rem;
+    margin-left: 50px;
+    text-decoration:none;
+    color:white ;
+    float: left;
+   
+}
+.navbar-links a{
+ 
+    display: flex;
+    margin-right: 8px;
+    list-style: none;
+    font-size: 1.5rem;
+    float: right; 
+    text-decoration: none;
+    color: white;
+   
+    display: block;
+  
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-bottom: 500px;
+ }
+ .tagline{
+    color:#51A6A1;
+    font-weight: 600;
+    font-size: 35px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    margin : 30px 20px 0px 0px;
+ }
+ 
+ .btn{
+    font-size: 20px;
+    background-color: white;
+    border: solid 3px #51A6A1;
+    border-radius: 10px;
+    margin:30px;
+    padding:20px;
+ }
+ .btn:hover{
+    background-color: #51a6a090;
+ }
+ .sec2{
+    display:flex;
+    margin-left: 50px;
+    margin-top: 20px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+ }
+ .card{
+    padding:20px;
+    margin:30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ }
+ h2{
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+ }
+ .icon img{
+    display: flex;
+    height:300px;
+    width:300px;
+    justify-content: center;
+    border-radius: 100%;
+ }
+ .bar{
+    height: 25px;
+    background-color: gainsboro;
+    border-radius: 15px;
+    width: 100%;
+    margin: 20px;
+ }
+ .nbar{
+    font-size: 20px;
+    text-align: center;
+    height: 25px;
+    background-color: rgb(248, 184, 88);
+    border-radius: 15px;
+ }
+ .bar1{
+    width:20%;
+ }
+ .bar2{
+    width:50%;
+ }
+ a{
+   text-decoration: none;
+   color:white;
+ }
+
+h2 a{
+   text-decoration: none;
+   color:black;
+   margin: 10px;
+ }
+

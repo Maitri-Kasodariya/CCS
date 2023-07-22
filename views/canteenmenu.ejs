@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="/css/canteen.css">
+</head>
+
+<body>
+    <nav class="navbar">
+
+        <!-- <div class="main-title"><a href="Homepagemain.html"  ><b>Cafeteria</b></a></div> -->
+        <div class="wrapper">
+            <label for="toggler" style="color: black;">☰</label>
+            <input type="checkbox" id="toggler">
+            <div class="sidebar">
+                <ul class="menu">
+                    <h1 style="font-size: 1.5rem;"><a href="#">Cafeteria</a></h1>
+
+                    <li><a id="orderHistory">Order History</a></li>
+
+                    <% for (var i=0; i < data.vendordata.length; i++) { %>
+                        <li><a href="/menu/<%= data.vendordata[i]._id %>">
+                                <%= data.vendordata[i].canteenName %>
+                            </a></li>
+                        <% } %>
+                            <li><a id="dailyuser">Daily order Analysis</a></li>
+                            <li><a id="monthlyuser">Monthly order Analysis</a></li>
+                            <li><a href="/addreview">Add Review </a></li>
+                            <li><a href="/review">Reviews</a></li>
+                </ul>
+            </div>
+            <span class="main-title"><a href="#"><b>Cafeteria</b></a></span>
+
+            <span class="navbar-links">
+                <a href="/">Logout</a></li>
+            </span>
+    </nav>
+    <div>
+
+        <h1 class="title">
+            <%=data.canteenName%>
+        </h1>
+        <h1 class="menu2">
+            Menu Listing
+        </h1>
+    </div>
+    <form action="/submitorder" method="post">
+        <table>
+            <tr>
+                <th class="adjust">Name</th>
+                <th>Price</th>
+                <th>Estimated Time(mins)</th>
+                <th colspan="3">Quantity</th>
+            </tr>
+            <% for(var i=0;i<data.menudata.length;i++){ %>
+                <tr>
+                    <td>
+                        <%=data.menudata[i].name%>
+                    </td>
+                    <td>
+                        <%=data.menudata[i].price%>
+                    </td>
+                    <td>
+                        <%=data.menudata[i].time%>
+                    </td>
+                    <td>
+                        <span class="number1">
+
+                            <input type="button" class="minus" value="-" id="minus" onclick="minus1(<%=i+1%>);">
+
+
+                            <input type="number" style="border:2px solid rgb(243, 216, 10);" value="0"
+                                id="count<%=i+1%>" name="menu[<%= i %>][quantity]" />
+
+                            <input type="button" class="plus" value="+" id="plus" onclick="plus1(<%=i+1%>);">
+                            
+
+                        </span>
+                    </td>
+                    <input type="hidden" name="menu[<%= i %>][itemId]" value="<%= data.menudata[i]._id %>" />
+                </tr>
+                <% } %>
+        </table>
+        <input type="hidden" name="userId" id="userId">
+        <div class="bttn">
+            <button type="submit">SUBMIT</button>
+        </div>
+    </form>
+
+    <script>
+        const userid = sessionStorage.getItem('userId');
+
+        window.onload = function () {
+            var user = document.getElementById('userId');
+            if (user) {
+                user.value = userid;
+            } else {
+                console.error("Element with id 'userId' not found.");
+            }
+
+            const userId = sessionStorage.getItem('userId');
+            const dailyUserLink = document.getElementById('dailyuser');
+            const monthlyUserLink = document.getElementById('monthlyuser');
+            const orderHistoryLink = document.getElementById('orderHistory');
+
+            dailyUserLink.addEventListener('click', function () {
+                window.location.href = `/dailyuser/${userId}`;
+            });
+
+            monthlyUserLink.addEventListener('click', function () {
+                window.location.href = `/monthlyuser/${userId}`;
+            });
+
+            orderHistoryLink.addEventListener('click', function () {
+                window.location.href = `/orderHistory/${userId}`;
+            });
+        };
+
+        function plus1(index) {
+            var countInput = document.getElementById('count' + index);
+            var countValue = parseInt(countInput.value);
+
+            // Increase the count value by 1
+            countInput.value = countValue + 1;
+        }
+
+        function minus1(index) {
+            var countInput = document.getElementById('count' + index);
+            var countValue = parseInt(countInput.value);
+
+            // Decrease the count value by 1, but not below 0
+            if (countValue > 0) {
+                countInput.value = countValue - 1;
+            }
+        }
+    </script>
+
+
+
+</body>
+
+</html>

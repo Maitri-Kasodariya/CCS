@@ -1,0 +1,52 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/loginpage.css">
+    <link rel="stylesheet" href="/css/common.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="main-title"><a href="/mainhome"  ><b>Cafeteria</b></a></div>
+        <div class="navbar-links">
+            <ul>
+                <li><a class="active" href="/login">Login</a></li>
+                <li><a href="/signup">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+    <img class="new" src="/img/logincafeteria.jpg" width="600" height="679">
+
+      <div class="con">
+      
+        <h1>Login</h1>
+
+        <form action="/login" method="post">
+          <label for="email">Email</label><br>
+          <input type="email" id="email" name="email" placeholder="Enter your Email"><br>
+          <label for="password" >Password</label><br>
+          <input type="password" id="password" name="password" placeholder="Enter you Password"><br>
+          <label for="country">Role</label><br>
+    <select id="role" name="role">
+      <option value="Student">Student</option>
+      <option value="Professor">Professor</option>
+      <option value="Admin">Admin</option>
+      <option value="Vendor">Vendor</option>
+    </select>
+  
+    <input type="submit" value="Login">
+        </form>
+        <div class="tx">  <h5>Don't have an Account?<a href="/signup">&nbsp;Signup</a></h5></div>
+      
+
+
+</div>
+       
+   
+    
+</html>

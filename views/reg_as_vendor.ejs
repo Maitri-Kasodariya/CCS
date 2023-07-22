@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Register</title>
+    <link rel="stylesheet" href="/css/reg_as_user_vendor.css">
+    <link rel="stylesheet" href="/css/common.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="main-title"><a href="/mainhome"  ><b>Cafeteria</b></a></div>
+        <div class="navbar-links">
+            <ul>
+                <li><a href="/login">Login</a></li>
+                <li><a class="active" href="/signup">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+    <img class="new" src="/img/roundimage.png" style="padding:20px 0px; " width="450" height="679">
+  
+    <div class="need">
+      <h1>Create Account As Vendor</h1>
+      <div class="container">
+        
+        <form onsubmit="return answer();" action="/regvendor" method="post">
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">First Name</span>
+              <input type="text" name = "firstName" placeholder="Enter your name" autocomplete="off" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Last Name</span>
+              <input type="text" name = "lastName" placeholder="Enter your username" autocomplete="off" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Canteen Name</span>
+              <input type="text" name = "canteenName" placeholder="Enter your canteen name"autocomplete="off" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Email Address</span>
+              <input type="email"pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" autocomplete="off" placeholder="example@example.com" name = "email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Phone Number</span>
+              <input type="tel" pattern="[1-9]{1}[0-9]{9}" name = "phoneNumber" placeholder="9999999999" autocomplete="off"required>
+            </div>
+            <div class="input-box">
+              <span class="details">QR Code : </span>
+              <input type="url" id="qrCode" name="qrCode" placeholder="Enter Drive link for QRCode" >
+            </div>
+            <div class="input-box">
+              <span class="details">Enter Password</span>
+              <input type="password" <input pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" name="password" id="password" onkeyup="checkPasswordStrength()"placeholder="Enter your password" autocomplete="off" required>
+              <pre>
+Your password should contain 8 characters,
+atleast one uppercase letter, 
+atleast one lowercase letter,
+atleast ne digit and one special character.
+              </pre>
+              <p id="password-error"></p>
+            </div>
+            <div class="input-box">
+              <span class="details">Confirm Password</span>
+              <input type="password" name = "confirmPassword" id="confirmPassword" onkeyup="checkPasswordMatch()"  placeholder="Confirm your password" autocomplete="off" required>
+              <p id="password-match-error"></p>
+            </div>
+            <div class="input-box">
+            <span class="address">Address or Discription<span class="required"></span></span>
+            <input type="text" name = "addOrDesc" placeholder="Enter Address" autocomplete="off" size="70"  />
+            </div>
+            <div class="check">
+              <input name = "terms" type="checkbox" value = "true" /> <b>I Agree to all terms and conditions</b>
+            </div>
+          <div class="button">
+            <input type="submit" value="Register">
+          </div>
+          </div>
+        </form>
+        </div>
+      </div>
+<script>
+  function answer()
+  {alert("Data inserted successfully!");}
+
+  function checkPasswordMatch() {
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+    var passwordMatchError = document.getElementById("password-match-error");
+
+    if (password === confirmPassword) {
+      passwordMatchError.textContent = "Passwords match!";
+      passwordMatchError.classList.remove("error-message"); 
+      passwordMatchError.classList.add("noerror-message"); 
+      document.getElementById("submit-button").disabled = false; // Enable the submit button
+    } else {
+      passwordMatchError.textContent = "Passwords do not match!";
+      passwordMatchError.classList.add("error-message");
+      passwordMatchError.classList.remove("noerror-message"); // Add the error class
+      document.getElementById("submit-button").disabled = true; // Disable the submit button
+    }
+  }
+  function checkPasswordStrength() {
+    var password = document.getElementById("password").value;
+
+    // Define the password strength criteria
+    var regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    if (password.match(regex)) {
+      document.getElementById("password-error").textContent = "Your password is Strong!";
+      document.getElementById("password-error").classList.add("noerror-message");
+      document.getElementById("password-error").classList.remove("error-message");
+    } else {
+      document.getElementById("password-error").textContent = "Please enter a valid password!";
+      document.getElementById("password-error").classList.remove("noerror-message");
+      document.getElementById("password-error").classList.add("error-message");
+    }
+  }
+</script>
+</body>    
+</html>
