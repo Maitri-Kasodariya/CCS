@@ -186,4 +186,12 @@ h2 a{
    color:black;
    margin: 10px;
  }
-
+.Ann{
+  padding:10px ;
+  margin:10px;
+  margin-left: 100px;
+  margin-right: 100px;
+  border:1px solid #FE724C;
+  border-radius: 20px;
+  background-color: antiquewhite;
+}

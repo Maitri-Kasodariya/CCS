@@ -19,6 +19,7 @@ route.get('/addreview',services.addreview)
 route.get('/review',controller.reviewshow)
 route.get('/reviewadmin',controller.reviewshowforadmin)
 route.get('/vendorform',controller.formdata)
+route.get('/announcements',controller.announcementsshow)
 
 /**
   * @description API Route
@@ -57,5 +58,7 @@ route.get('/addmen/:id',controller.addmenurender);
 route.post('/canteens/:id/menu/add',controller.addmenu);
 route.get('/back/:id',controller.backfromshowmenu);
 route.get('/deletemenuitem/:id/:canteenId',controller.deletemenuitem);
+route.get('/postannouncementrender/:id',controller.postannouncementrender);
+route.post('/postannouncement/:id',controller.postannouncement);
 
 module.exports = route

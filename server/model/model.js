@@ -76,6 +76,13 @@ const reviewSchema=new Schema({
     status:{type:String,default:"Pending"}
 });
 
+const announcementSchema=new Schema({
+    title:{type:String,required:true},
+    description: {type:String,required:true},
+    canteenName : {type:String,required:true},
+    date: { type: Date, default: new Date() }
+});
+
 const user = mongoose.model('User', userSchema);
 const vendor = mongoose.model('Vendor', vendorSchema);
 const admin = mongoose.model('Admin', adminSchema);
@@ -83,5 +90,6 @@ const order = mongoose.model('Order',orderSchema);
 const menu = mongoose.model('Menu',menuSchema);
 const basket = mongoose.model('Basket',basketSchema);
 const review = mongoose.model('Review', reviewSchema);
+const announcement = mongoose.model('Announcement',announcementSchema);
 
-module.exports = {user,vendor,admin,order,menu,basket,review};
+module.exports = {user,vendor,admin,order,menu,basket,review,announcement};

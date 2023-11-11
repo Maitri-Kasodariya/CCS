@@ -28,6 +28,7 @@
                 <li><a id="monthlyuser">Monthly order Analysis</a></li>
                 <li><a href="/addreview">Add Review </a></li>
                 <li><a href="/review">Reviews</a></li>
+                <li><a href="/announcements">Announcements</a></li>
              </ul>
           </div>
           <span class="main-title"><a href="#"  ><b>User Home</b></a><span>
@@ -35,7 +36,8 @@
                 <a href="/">Logout</a></li>
           </span>
     </nav>
-
+    <!-- <div class = "Ann">Announcement : <%=bodydata.latestAnnouncement.title%> - <%=bodydata.latestAnnouncement.description%> </div> -->
+    <div class="Ann" id="announcementDiv"></div>
     <div class = "sec1">
     <div class="tagline">Select the Canteen<br> you want to order from</div>
     
@@ -89,6 +91,24 @@
                 window.location.href = `/orderHistory/${userId}`;
             });
         };
+
+        var currentDate = new Date();
+
+        // Assuming bodydata.latestAnnouncement.date contains the announcement date in ISO format
+        var announcementDate = new Date('<%=bodydata.latestAnnouncement.date%>');
+
+        // Calculate the difference in days
+        var timeDifference = currentDate.getTime()-announcementDate.getTime() ;
+        var daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+        // Display the announcement if the difference is less than 5 days
+        if (daysDifference < 5) {
+            document.getElementById('announcementDiv').innerHTML =
+                'Announcement: ' +
+                '<%=bodydata.latestAnnouncement.title%>' +
+                ' - ' +
+                '<%=bodydata.latestAnnouncement.description%>';
+        }
     </script>
 </body>
 </html>

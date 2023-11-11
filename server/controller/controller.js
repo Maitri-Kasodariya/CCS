@@ -1,4 +1,4 @@
-const { user, vendor, admin, order, menu, basket, review } = require('../model/model');
+const { user, vendor, admin, order, menu, basket, review,announcement } = require('../model/model');
 const { ObjectId } = require('mongodb');
 
 //register user
@@ -93,16 +93,30 @@ exports.afterlogin = async (req, res) => {
                 }
                 else {
 
-                    vendor.find({ status: "Approved" })
-                        .then((dataven) => {
-
-                            res.render('userhome', { bodydata: { data: dataven, id: data[0]._id } })
+                    
+                    announcement.findOne({}, {}, { sort: { 'date': -1 } }) // Find the most recent announcement
+                        .then((latestAnnouncement) => {
+                            // Assuming you have a variable 'latestAnnouncement' containing the most recent announcement
+                    
+                            // Your existing code to find vendors with status "Approved"
+                            vendor.find({ status: "Approved" })
+                                .then((dataven) => {
+                                    res.render('userhome', {
+                                        bodydata: {
+                                            data: dataven,
+                                            id: data[0]._id,
+                                            latestAnnouncement: latestAnnouncement // Pass the latest announcement to the view
+                                        }
+                                    });
+                                })
+                                .catch((err) => {
+                                    res.status(500).render('error', { message: `Some error occurred` });
+                                });
                         })
                         .catch((err) => {
-                            res
-                                .status(500)
-                                .render('error', { message: `Some error occured` });
-                        })
+                            res.status(500).render('error', { message: `Some error occurred` });
+                        });
+                    
                 }
 
             })
@@ -601,15 +615,31 @@ exports.afteraddreview = async (req, res) => {
     newreview
         .save(newreview)
         .then(data => {
-            vendor.find({ status: "Approved" })
-                .then((data) => {
-                    res.render('userhome', { bodydata: { data: data, id: id } });
-                })
+           
+
+            announcement.findOne({}, {}, { sort: { 'date': -1 } }) // Find the most recent announcement
+                .then((latestAnnouncement) => {
+                    // Assuming you have a variable 'latestAnnouncement' containing the most recent announcement
+
+                    // Your existing code to find vendors with status "Approved"
+                    vendor.find({ status: "Approved" })
+                        .then((dataven) => {
+                            res.render('userhome', {
+                                bodydata: {
+                                    data: dataven,
+                                    id: data[0]._id,
+                                    latestAnnouncement: latestAnnouncement // Pass the latest announcement to the view
+                                }
+                            });
+                        })
                 .catch((err) => {
-                    res
-                        .status(500)
-                        .render('error', { message: `Some error occured` });
-                })
+                    res.status(500).render('error', { message: `Some error occurred` });
+                });
+    })
+    .catch((err) => {
+        res.status(500).render('error', { message: `Some error occurred` });
+    });
+
         })
         .catch(err => {
             res.status(500)
@@ -629,6 +659,20 @@ exports.reviewshow = async (req, res) => {
         res.render('reviewmain', { reviews, vendordata: vendordata });
     } catch (error) {
         console.log('Error retrieving reviews:', error);
+        res.render('error');
+    }
+
+}
+//announcement page
+exports.announcementsshow = async (req, res) => {
+
+    try {
+        const announcements = await announcement.find();
+        const vendordata = await vendor.find({ status: "Approved" });
+
+        res.render('announcement', { announcements, vendordata: vendordata });
+    } catch (error) {
+        console.log('Error retrieving announcements:', error);
         res.render('error');
     }
 
@@ -923,6 +967,52 @@ exports.addmenu= async (req, res) => {
       }
   };
   
-  
+  exports.postannouncementrender= async (req, res) =>{
+    try {
+        const canteenId = req.params.id;
+        res.render('postannouncement', { canteenId });
+     
+      } catch (error) {
+     
+        res.status(500).json({ message: 'An error occurred while loading announcement form.' });
+      }
+  }
+
+  exports.postannouncement= async (req, res) =>{
+    try {
+        const canteenId = req.params.id;
+        const nvendor = await vendor.findOne({ _id: canteenId });
+
+        if (!nvendor) {
+            return res.status(404).json({ message: 'Vendor not found for the given canteenId.' });
+        }
+
+        // Extract the name from the vendor data
+        const name = nvendor.canteenName;
+        console.log(nvendor);
+        const newannouncement = new announcement({
+            title: req.body.title,
+            description: req.body.description,
+            canteenName : name,
+        });
+
+        newannouncement
+        .save(newannouncement)
+        .then(data => {
+            res.render('postannouncement', { canteenId });
+        })
+        .catch(err => {
+            res.status(500)
+                .render('error', {
+                    message: err.message || 'Some error occured  while operation',
+                });
+        });
+     
+      } catch (error) {
+     
+        console.error('Error posting the announcement:', error);
+        res.status(500).json({ message: 'An error occurred while posting the announcement.' });
+      }
+  }
   
   
