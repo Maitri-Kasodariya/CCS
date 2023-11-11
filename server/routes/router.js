@@ -58,4 +58,6 @@ route.post('/canteens/:id/menu/add',controller.addmenu);
 route.get('/back/:id',controller.backfromshowmenu);
 route.get('/deletemenuitem/:id/:canteenId',controller.deletemenuitem);
 
+route.get('/menu/:id/item/:itemId', controller.menuItemDetails);
+
 module.exports = route

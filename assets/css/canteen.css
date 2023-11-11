@@ -1,152 +1,164 @@
 * {
-    box-sizing:border-box;
-    ;
+  box-sizing: border-box;
+  ;
 }
 
-body{
-    margin :0;
-    padding: 0;
+body {
+  margin: 0;
+  padding: 0;
 }
-.navbar{
-   
-    justify-content:space-between;
-    align-items: center;
-    background-color: #FE724C;
-    color:white;
-    padding-bottom: 5px;
- }
-.main-title a{
-    font-size: 2rem;
-    margin-left: 50px;
-    text-decoration:none;
-    color:white ;
-    float: left;
-}
-.new{
-    margin-top: 30px;
-    margin-right: 10px;
-    float:right;
-}
-.navbar-links a{
 
-    display: flex;
-    margin-right: 8px;
-    list-style: none;
-    font-size: 1.5rem;
-    float: right; 
-    text-decoration: none;
-    color: white;
-   
-    display: block;
-  
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin-bottom: 500px;
- }
- 
+.navbar {
+
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FE724C;
+  color: white;
+  padding-bottom: 5px;
+}
+
+.main-title a {
+  font-size: 2rem;
+  margin-left: 50px;
+  text-decoration: none;
+  color: white;
+  float: left;
+}
+
+.new {
+  margin-top: 30px;
+  margin-right: 10px;
+  float: right;
+}
+
+.navbar-links a {
+
+  display: flex;
+  margin-right: 8px;
+  list-style: none;
+  font-size: 1.5rem;
+  float: right;
+  text-decoration: none;
+  color: white;
+
+  display: block;
+
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-bottom: 500px;
+}
+
 .con {
-    float: left;
-    font-size: 4.5rem;
-    margin-top: 100px;
-    margin-left: 55px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-.con .c{
-   color: #FE724C;
-
-}
-.con .s{
-    font-size: 1.5rem;
-    padding: 1px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
-}
-.navbar-links li{
-   list-style: none;
-   font-size: 1.5rem;
-
-}
-.navbar-links li a{
-    text-decoration: none;
-    color: white;
-    padding: 1rem;
-    display: block;
-    font-size: 1.5rem;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  float: left;
+  font-size: 4.5rem;
+  margin-top: 100px;
+  margin-left: 55px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.menu2{
-    margin-left: 2rem;
-    font-size: 2.3rem;
-    text-decoration: underline;
-   color: rgb(79, 134, 134);
+.con .c {
+  color: #FE724C;
 
 }
 
-.menu-1{
-    margin-left: 1.5rem;
-    font-size: 2rem;
-   color: rgb(79, 134, 134);
+.con .s {
+  font-size: 1.5rem;
+  padding: 1px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
-.container1{
-    display: inline-block;
-   align-items: center;
-   margin-left: 50px;
-  
-    padding: 2.3rem;
-    font-size: 1.7rem;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-   
-}
-
-.container1 span{
-    padding: 10px;
-    display: flex;
-    font-size: 1.3rem;
-}
-.box1
-{  padding: 0px;
-    align-items: center;
-    margin: 4.5rem  4.5rem;
-   
-    margin-bottom: 30px;
+.navbar-links li {
+  list-style: none;
+  font-size: 1.5rem;
 
 }
 
-
-#minus{
- 
-    background:#dc4646;
-    border-radius:4px;
-    width:30px;
-    height:35px;
-    display: inline-block;
-}
-#plus{
-   
-     background:rgb(40, 172, 40);
-     border-radius:4px;
-     width:30px;
-     height:35px;
-     display: inline-block;
- }
-.number1 input{
-
-    height:35px;
-width: 100px;
-text-align: center;
-font-size: 20px;
-    border:1px solid #ddd;
-    border-radius:4px;
-display: inline-block;
-vertical-align: middle;
-}
-.adjust{
-    padding: 45px;
-    margin-bottom: 25px;
-    color: rgb(24, 24, 121);
+.navbar-links li a {
+  text-decoration: none;
+  color: white;
+  padding: 1rem;
+  display: block;
+  font-size: 1.5rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.bttn button{
+.menu2 {
+  margin-left: 2rem;
+  font-size: 2.3rem;
+  text-decoration: underline;
+  color: rgb(79, 134, 134);
+
+}
+
+.menu-1 {
+  margin-left: 1.5rem;
+  font-size: 2rem;
+  color: rgb(79, 134, 134);
+}
+
+.container1 {
+  display: inline-block;
+  align-items: center;
+  margin-left: 50px;
+
+  padding: 2.3rem;
+  font-size: 1.7rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+
+.container1 span {
+  padding: 10px;
+  display: flex;
+  font-size: 1.3rem;
+}
+
+.box1 {
+  padding: 0px;
+  align-items: center;
+  margin: 4.5rem 4.5rem;
+
+  margin-bottom: 30px;
+
+}
+
+
+#minus {
+
+  background: #dc4646;
+  border-radius: 4px;
+  width: 30px;
+  height: 35px;
+  display: inline-block;
+}
+
+#plus {
+
+  background: rgb(40, 172, 40);
+  border-radius: 4px;
+  width: 30px;
+  height: 35px;
+  display: inline-block;
+}
+
+.number1 input {
+
+  height: 35px;
+  width: 100px;
+  text-align: center;
+  font-size: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.adjust {
+  padding: 45px;
+  margin-bottom: 25px;
+  color: rgb(24, 24, 121);
+}
+
+/* .bttn button{
     float: right;
     margin-right: 290px;
     width: 15%;
@@ -160,104 +172,130 @@ vertical-align: middle;
     cursor: pointer;
    margin-bottom: 100px;
 
+} */
+
+.bttn {
+  text-align: center;
+  margin-top: 50px;
 }
 
-.title{
-    align-items: center;
-    text-align: center;
-    color: #222f63;
-    box-shadow: #222f63;
+.bttn button {
+  width: 15%;
+  font-size: 1rem;
+  background-color: #FFC529;
+  color: rgb(10, 10, 10);
+  padding: 14px 20px;
+  border: none;
+  border-radius: 28.5px;
+  cursor: pointer;
+  margin-bottom: 100px;
+  display: inline-block;
+  /* This ensures that the button is only as wide as its content */
+}
+
+.title {
+  align-items: center;
+  text-align: center;
+  color: #222f63;
+  box-shadow: #222f63;
 }
 
 :root {
-    --timing-func: cubic-bezier(.02,.78,.31,1.17);
-  }
-  
-  html {
-    font-size: 16px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-  }
-  
-  .wrapper {
-    padding: 2rem;
-   
-  }
-  
-  input {
-    display: none;
-  }
-  
-  label {
-    border-radius: 3px;
-    text-transform: uppercase;
-    cursor: pointer;
-    user-select: none;
-    position: fixed;
-    z-index: 2;
-    left: 1rem;
-    top: 1rem;
-    padding: 0.75rem 1rem;
-    background-color: #efefef;
-  }
-  label:hover {
-    background: #cccccc;
-  }
-  
-  .wrapper:has(input:checked) label {
-    background: #444444;
-    color: white;
-  }
-  
-  .menu {
-    width: min(250px, 100vw);
-  }
-  
-  .sidebar {
-    display: inline-block;
-    overflow: hidden;
-    background: #FE724C;
-    padding-top: 4rem;
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    max-width: 0;
-    transition: all 0.2s var(--timing-func);
-  }
-  .menu li{
-    padding: 10px;
-    /* border:1px solid #efefef; */
-    list-style: none;
-     color: #ffffff;
-     font-size: 1.2rem;
-    margin:10px;
-   
- 
-  }
-  .menu li:hover{
-   background-color:black;
-   border-radius: 2px;
-  }
-  
-  #toggler:checked + .sidebar {
-    max-width: min(250px, 80vw);
-  }
-  a{
-    text-decoration: none;
-    color:white;
-  }
-  
-  table{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   
+  --timing-func: cubic-bezier(.02, .78, .31, 1.17);
+}
 
-  }
-  td,th{
-    padding:10px;
-    margin:50;
-    margin-left: 70px;
-    text-align: center;
-    font-size: 20px;
-  }
+html {
+  font-size: 16px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.wrapper {
+  padding: 2rem;
+
+}
+
+input {
+  display: none;
+}
+
+label {
+  border-radius: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  position: fixed;
+  z-index: 2;
+  left: 1rem;
+  top: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #efefef;
+}
+
+label:hover {
+  background: #cccccc;
+}
+
+.wrapper:has(input:checked) label {
+  background: #444444;
+  color: white;
+}
+
+.menu {
+  width: min(250px, 100vw);
+}
+
+.sidebar {
+  display: inline-block;
+  overflow: hidden;
+  background: #FE724C;
+  padding-top: 4rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  max-width: 0;
+  transition: all 0.2s var(--timing-func);
+}
+
+.menu li {
+  padding: 10px;
+  /* border:1px solid #efefef; */
+  list-style: none;
+  color: #ffffff;
+  font-size: 1.2rem;
+  margin: 10px;
+
+
+}
+
+.menu li:hover {
+  background-color: black;
+  border-radius: 2px;
+}
+
+#toggler:checked+.sidebar {
+  max-width: min(250px, 80vw);
+}
+
+a {
+  /* text-decoration: none; */
+  /* color:white; */
+  /* color: black; */
+}
+
+table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+td,
+th {
+  padding: 10px;
+  margin: 50;
+  margin-left: 70px;
+  text-align: center;
+  font-size: 20px;
+}

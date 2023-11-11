@@ -61,7 +61,7 @@ exports.regvendor = async (req, res) => {
         .catch(err => {
             res.status(500)
                 .render('error', {
-                    message: err.message || 'Some error occured  while creating a create operation',
+                    message: err.message || 'Some error occured while creating a create operation',
                 });
         });
 }
@@ -923,6 +923,24 @@ exports.addmenu= async (req, res) => {
       }
   };
   
+
+  //fetch item details
+  exports.menuItemDetails = async (req, res) => {
+    try {
+        const itemId = req.params.itemId;
+
+        // Fetch the menu item details using the itemId
+        const menuItem = await menu.findById(itemId).exec();
+
+        if (!menuItem) {
+            throw new Error('Menu item not found');
+        }
+
+        res.render('menuitemdetails', { menuItem });
+    } catch (err) {
+        res.status(500).render('error', { message: err.message || 'Error retrieving menu item details' });
+    }
+};
   
   
   
