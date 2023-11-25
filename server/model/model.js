@@ -83,6 +83,12 @@ const announcementSchema=new Schema({
     date: { type: Date, default: new Date() }
 });
 
+const accountSchema = new Schema({
+    canteenId : {type: mongoose.Schema.Types.ObjectId, ref: 'vendor'},
+    userId : {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
+    amount : {type: Number, default:0},
+});
+
 const user = mongoose.model('User', userSchema);
 const vendor = mongoose.model('Vendor', vendorSchema);
 const admin = mongoose.model('Admin', adminSchema);
@@ -91,5 +97,7 @@ const menu = mongoose.model('Menu',menuSchema);
 const basket = mongoose.model('Basket',basketSchema);
 const review = mongoose.model('Review', reviewSchema);
 const announcement = mongoose.model('Announcement',announcementSchema);
+const account = mongoose.model('Account',accountSchema);
 
-module.exports = {user,vendor,admin,order,menu,basket,review,announcement};
+
+module.exports = {user,vendor,admin,order,menu,basket,review,announcement,account};

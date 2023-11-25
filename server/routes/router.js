@@ -20,6 +20,9 @@ route.get('/review',controller.reviewshow)
 route.get('/reviewadmin',controller.reviewshowforadmin)
 route.get('/vendorform',controller.formdata)
 route.get('/announcements',controller.announcementsshow)
+route.get('/accountpage/:id',controller.accountpage)
+route.get('/vendoraccount/:id',controller.vendoraccountpage)
+
 
 /**
   * @description API Route
@@ -60,5 +63,8 @@ route.get('/back/:id',controller.backfromshowmenu);
 route.get('/deletemenuitem/:id/:canteenId',controller.deletemenuitem);
 route.get('/postannouncementrender/:id',controller.postannouncementrender);
 route.post('/postannouncement/:id',controller.postannouncement);
+route.get('/reset/:id/:canteenId',controller.resetamount);
+route.get('/vendorhomepage/:id',controller.vendorhome);
+route.post('/searchAccount/:id',controller.searchAccount);
 
 module.exports = route

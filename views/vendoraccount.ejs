@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/vendorhomestyle.css">
+    <title>Vendor Account</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="main-title"><a href="/vendorhomepage/<%=id%>"><b>Vendor Home</b></a></div>
+        <div class="navbar-links">
+            <ul>
+                <li><a href="/">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="sec1" style = "margin:10px; margin-left: 30px; margin-top:30px;">
+        <div>
+            <form action="/searchAccount/<%= id%>" method="post">
+                <label for="email" style = "font-size:20px;">Search by Email Id:</label>
+                <input type="email" name="email">
+                <button type="submit" value="Submit" class="btn btn1" style="padding:5px;">Search</button>
+            </form>
+            <button onclick="window.location.href='/vendoraccount/<%= id %>'" class="btn" style = "padding:10px;">Accounts List</button>
+        </div>
+    </div>
+
+    <h2>Accounts</h2>
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>Amount</th>
+            <th>Reset</th>
+            
+        </tr>
+        <% for (var i = 0; i <accountData.length; i++) { %>
+
+            <td><%= accountData[i].email %></td>
+            <td><%= accountData[i].amount %></td>
+            <td>
+                <form action="/reset/<%= accountData[i]._id %>/<%=id%>" method="get">
+                    <button type="submit" id="reset" class="reset">Reset</button>
+                </form>
+            </td>
+        </tr>
+        <% } %>
+    </table>
+
+
+</body>
+</html>

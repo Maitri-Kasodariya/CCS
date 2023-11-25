@@ -1,4 +1,4 @@
-const { user, vendor, admin, order, menu, basket, review,announcement } = require('../model/model');
+const { user, vendor, admin, order, menu, basket, review,announcement,account } = require('../model/model');
 const { ObjectId } = require('mongodb');
 
 //register user
@@ -19,17 +19,28 @@ exports.reguser = async (req, res) => {
         role: req.body.role,
     });
 
-    newuser
-        .save(newuser)
-        .then(data => {
-            res.redirect('/reguser');
-        })
-        .catch(err => {
-            res.status(500)
-                .render('error', {
-                    message: err.message || 'Some error occured  while creating a create operation',
+    try {
+        const savedUser = await newuser.save();
+
+            const approvedVendors = await vendor.find({ status: 'Approved' });
+
+            for (const vendor of approvedVendors) {
+                const newaccount = new account({
+                    canteenId: vendor._id,
+                    userId: savedUser._id,
+                    amount: 0, 
                 });
+
+                await newaccount.save();
+            }
+        
+
+        res.redirect('/reguser');
+    } catch (err) {
+        res.status(500).render('error', {
+            message: err.message || 'Some error occurred while creating a create operation',
         });
+    }
 }
 
 //register vendor
@@ -285,43 +296,34 @@ exports.rejectorder = async (req, res) => {
             .render('error', { message: `Data of id is empty` });
     }
     const id = req.params.id;
-    order.findByIdAndUpdate(id, { $set: { status: "Rejected" } }, { new: true })
-        .then(data => {
-            if (!data) {
-                res
-                    .status(500)
-                    .render('error', { message: `Object not found` });
-            }
-            else {
+    try {
+        const rejectedOrder = await order.findByIdAndUpdate(id, { $set: { status: "Rejected" } }, { new: true });
 
-                order.find({ canteenId: data.canteenId, status: "Pending" })
-                    .then(datao => {
-
-                        vendor.findOne({ _id: data.canteenId })
-                            .then(vendoro => {
-                                res.render('vendorhome', { object: { id: vendoro._id, bval: vendoro.bar, name: vendoro.canteenName, orderdata: datao } });
-                            })
-                            .catch(err => {
-                                res
-                                    .status(500)
-                                    .render('error', { message: `${err}` || `Error retrieving data` });
-                            });
-                    })
-                    .catch(err => {
-                        res
-                            .status(500)
-                            .render('error', { message: `${err}` || `Error occured retrieving order data` });
-                    })
-
-
-            }
-        })
-        .catch((err) => {
+        if (!rejectedOrder) {
             res
                 .status(500)
-                .render('error', { message: `${err}` || `Error retrieving data` });
-        });
+                .render('error', { message: `Object not found` });
+            return;
+        }
+
+        // Decrement the amount in the account collection
+        await account.updateOne(
+            { userId: rejectedOrder.userId, canteenId: rejectedOrder.canteenId },
+            { $inc: { amount: -rejectedOrder.price } }
+        );
+
+        const pendingOrders = await order.find({ canteenId: rejectedOrder.canteenId, status: "Pending" });
+
+        const vendorInfo = await vendor.findOne({ _id: rejectedOrder.canteenId });
+
+        res.render('vendorhome', { object: { id: vendorInfo._id, bval: vendorInfo.bar, name: vendorInfo.canteenName, orderdata: pendingOrders } });
+    } catch (err) {
+        res
+            .status(500)
+            .render('error', { message: `${err}` || `Error occurred retrieving data` });
+    }
 }
+
 
 //fucntion for menu
 exports.menu = async (req, res) => {
@@ -740,40 +742,59 @@ exports.reject = async (req, res) => {
 
 }
 
-//approve vendor in admin
+
+
 exports.approve = async (req, res) => {
     const vendorId = req.body.vendorId;
 
-    vendor.findByIdAndUpdate(vendorId, { $set: { status: "Approved" } })
-        .then(data => {
-            if (!data) {
-                res
-                    .status(500)
-                    .render('error', { message: `Object not found` });
-            }
-            else {
-                res.render('adminhome');
-            }
-        });
+    try {
+        const approvedVendor = await vendor.findByIdAndUpdate(vendorId, { $set: { status: "Approved" } });
 
+        if (!approvedVendor) {
+            res.status(500).render('error', { message: `Object not found` });
+            return;
+        }
 
+        // Find all users
+        const allUsers = await user.find();
+
+        // Create account documents for each user with the approved vendor's ID as canteenId
+        for (const userObj of allUsers) {
+            const newAccount = new account({
+                userId: userObj._id,
+                canteenId: vendorId,
+                amount: 0, // You can set the initial amount as needed
+            });
+
+            await newAccount.save();
+        }
+
+        res.render('adminhome');
+    } catch (err) {
+        res.status(500).render('error', { message: `${err}` || 'Error occurred while updating vendor status' });
+    }
 }
+
 
 //reject vendor in admin
 exports.rejected = async (req, res) => {
     const vendorId = req.body.vendorId;
 
-    vendor.findByIdAndUpdate(vendorId, { $set: { status: "Rejected" } })
-        .then(data => {
-            if (!data) {
-                res
-                    .status(500)
-                    .render('error', { message: `Object not found` });
-            }
-            else {
-                res.render('adminhome');
-            }
-        });
+    try {
+        const rejectedVendor = await vendor.findByIdAndUpdate(vendorId, { $set: { status: "Rejected" } });
+
+        if (!rejectedVendor) {
+            res.status(500).render('error', { message: `Object not found` });
+            return;
+        }
+
+        // Delete all account documents with canteenId equal to the rejected vendorId
+        await account.deleteMany({ canteenId: vendorId });
+
+        res.render('adminhome');
+    } catch (err) {
+        res.status(500).render('error', { message: `${err}` || 'Error occurred while updating vendor status and deleting account documents' });
+    }
 }
 
 
@@ -845,9 +866,17 @@ exports.finalorder = async (req, res) => {
         for (const basketOrder of basketOrders) {
             const { name, price, quantity, canteenId, canteenName, qrCode, role } = basketOrder;
 
+            const totalPrice = price * quantity;
+
+            // Update account collection
+            await account.updateOne(
+                { canteenId, userId },
+                { $inc: { amount: totalPrice } }
+            );
+
             const orderdata = new order({
                 name,
-                price: price * quantity,
+                price: totalPrice,
                 quantity,
                 canteenId,
                 userId,
@@ -1015,4 +1044,110 @@ exports.addmenu= async (req, res) => {
       }
   }
   
-  
+  exports.accountpage = async (req, res) => {
+    const id = req.params.id; // here id = userid
+    try {
+        const vendordata = await vendor.find({ status: "Approved" });
+
+        const accountData = await account.find({ userId: id });
+        for (const canteen of accountData) {
+            const canteenId = canteen.canteenId;
+
+            // Assuming your canteen schema has fields like qrcode and name
+            const canteenInfo = await vendor.findOne({ _id: canteenId });
+
+            if (canteenInfo) {
+                canteen.qrCode = canteenInfo.qrCode;
+                canteen.canteenName = canteenInfo.canteenName;
+            }
+        }
+        //const filteredOrderData = orderData.filter(order => order.status !== 'Pending');
+        res.render('account', { accountData: accountData, id: id, vendordata: vendordata });
+    } catch (err) {
+        res.status(500).render('error', { message: err.message || 'Error retrieving data' });
+    }
+};
+
+exports.vendoraccountpage = async (req, res) => {
+    const id = req.params.id; //id = vendor id
+    try {
+        const accountData = await account.find({canteenId : id});
+        for (const theuser of accountData) {
+            const userId = theuser.userId;
+
+            // Assuming your canteen schema has fields like qrcode and name
+            const userInfo = await user.findOne({ _id: userId });
+
+            if (userInfo) {
+                theuser.email = userInfo.email;
+            }
+        }
+        res.render('vendoraccount',{accountData : accountData, id:id});
+    } catch (error) {
+        res.status(500).render('error', { message: error.message || 'Error retrieving data' });
+    }
+};
+//reset user pending amount from vendor side
+exports.resetamount = async (req, res) => {
+    try {
+        const { id, canteenId } = req.params;
+        await account.updateOne({ _id: id }, { $set: { amount: 0 } });
+        const accountData = await account.find({canteenId : canteenId});
+        for (const theuser of accountData) {
+            const userId = theuser.userId;
+
+            // Assuming your canteen schema has fields like qrcode and name
+            const userInfo = await user.findOne({ _id: userId });
+
+            if (userInfo) {
+                theuser.email = userInfo.email;
+            }
+        }
+        res.render('vendoraccount',{accountData : accountData, id:canteenId});
+
+    } catch (error) {
+        res.status(500).render('error', { message: error.message || 'Error retrieving data' });
+    }
+};
+
+//go to vendor home
+exports.vendorhome = async (req,res) => {
+    const id = req.params.id;
+    try {
+        const datao = await order.find({ canteenId: id, status: "Pending" })
+        const canteenData = await vendor.findOne({_id :id});
+        res.render('vendorhome', { object: { id:id, name: canteenData.canteenName, bval: canteenData.bar, orderdata: datao } });
+        
+    } catch (error) {
+        res.status(500).render('error', { message: error.message || 'Error retrieving data' });
+    }
+};
+
+//search user account on vendor side for payment
+exports.searchAccount = async (req,res) =>{
+    const id = req.params.id; //id = vendorid
+    try {
+       const email = req.body.email;
+       //console.log('Searching for user with email:', req.body.email, email);
+       const f_user = await user.findOne({email : email});
+
+       if (!f_user) {
+        res.status(404).render('error', { message: 'User not found' });
+        return;
+      }
+      
+       const accountData = await account.find({userId:f_user._id, canteenId : id});
+        
+
+       if (!accountData) {
+        res.status(404).render('error', { message: 'Account data not found for the specified user and vendor' });
+        return;
+        }
+
+       accountData[0].email = email;
+       //console.log('Found account:', accountData);
+       res.render('vendoraccount',{accountData : accountData, id:id});
+    } catch (error) {
+        res.status(500).render('error', { message: error.message || 'Error retrieving data' });
+    }
+};
