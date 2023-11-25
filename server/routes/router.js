@@ -59,5 +59,8 @@ route.get('/back/:id',controller.backfromshowmenu);
 route.get('/deletemenuitem/:id/:canteenId',controller.deletemenuitem);
 
 route.get('/menu/:id/item/:itemId', controller.menuItemDetails);
+// route.post('/api/menuitem/:itemId/addreview', controller.addReview);
+// route.post('/api/menuitem/:itemId/addreview', controller.addReview);
+route.post('/api/menuitem/:itemId/addreview/:review', controller.addReview);
 
 module.exports = route

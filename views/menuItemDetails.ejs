@@ -1,9 +1,147 @@
 <!-- menuitemdetails.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Item Details</title>
+    
+    <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="/css/menuitemdetails.css">
+    
+    <!-- Add any other head-related tags as needed -->
+</head>
 <body>
-    <h1>Menu Item Details</h1>
-    <p>Name: <%= menuItem.name %></p>
-    <p>Price: <%= menuItem.price %></p>
-    <p>Time: <%= menuItem.time %> mins</p>
-    <p>Category: <%= menuItem.category %></p>
-    <!-- Add other details as needed -->
+    <!-- <div class="container"> -->
+        <div><h1>Menu Item Details</h1></div>
+        <div class="menu-item-details">
+            <p>Name: <%= menuItem.name %></p>
+            <p>Price: <%= menuItem.price %></p>
+            <p>Time: <%= menuItem.time %> mins</p>
+            <p>Category: <%= menuItem.category %></p>
+
+            <!-- Display the image from the URL -->
+            <div class="image-container">
+                <% if (menuItem.imageUrl) { %>
+                    <img class="menu-image" src="<%= menuItem.imageUrl %>" alt="Menu Item Image">
+                <% } else { %>
+                    <p>No Image Available</p>
+                <% } %>
+            </div>
+
+            <p>Description: <%= menuItem.description %></p>
+            <p>Anonymous Reviews:</p>
+            <ul>
+                <% menuItem.anonymousReviews.forEach(review => { %>
+                    <li><%= review %></li>
+                <% }); %>
+            </ul>
+
+<!-- <div class="add-review-section">
+    <button id="addReviewBtn">Add Review</button>
+
+    <div id="reviewForm" style="display: none;">
+        <input type="text" id="reviewInput" placeholder="Enter your review">
+        <button id="submitReviewBtn">Submit Review</button>
+    </div>
+</div>
+
+<script>
+        document.getElementById('addReviewBtn').addEventListener('click', function () {
+        document.getElementById('reviewForm').style.display = 'block';
+    });
+
+    document.getElementById('submitReviewBtn').addEventListener('click', function () {
+    const reviewInput = document.getElementById('reviewInput').value;
+
+    // Get the menu item ID from the URL
+    const itemId = window.location.pathname.split('/').pop();
+
+    // Perform AJAX request to submit the review
+    fetch(`/api/menuitem/${itemId}/addreview/${encodeURIComponent(reviewInput)}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error adding review');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Optionally handle success response
+        console.log('Review added successfully:', data);
+        // You can redirect or show a success message if needed
+        window.location.reload(); // Refresh the page to see the updated reviews
+    })
+    .catch(error => {
+        console.error('Error adding review:', error);
+        // Handle the error as needed
+    });
+});
+
+</script> -->
+
+<div class="add-review-section">
+    <button id="addReviewBtn">Add Review</button>
+
+    <div id="reviewForm" style="display: none;">
+        <input type="text" id="reviewInput" placeholder="Enter your review">
+        <button id="submitReviewBtn">Submit Review</button>
+        <button id="cancelReviewBtn">Cancel</button> <!-- New Cancel Button -->
+    </div>
+</div>
+
+<script>
+    document.getElementById('addReviewBtn').addEventListener('click', function () {
+        document.getElementById('reviewForm').style.display = 'block';
+        document.getElementById('addReviewBtn').style.display = 'none';
+    });
+
+    document.getElementById('cancelReviewBtn').addEventListener('click', function () {
+        document.getElementById('reviewForm').style.display = 'none';
+        document.getElementById('addReviewBtn').style.display = 'block';
+    });
+
+    document.getElementById('submitReviewBtn').addEventListener('click', function () {
+        const reviewInput = document.getElementById('reviewInput').value;
+
+        // Get the menu item ID from the URL
+        const itemId = window.location.pathname.split('/').pop();
+
+        // Perform AJAX request to submit the review
+        fetch(`/api/menuitem/${itemId}/addreview/${encodeURIComponent(reviewInput)}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error adding review');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Handle success response
+            console.log('Review added successfully:', data);
+            alert('Review added successfully!');
+            // Reload the page after the user clicks OK in the alert
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Error adding review:', error);
+            // Handle the error as needed
+        });
+        window.location.reload();
+    });
+</script>
+
+
+            <!-- Add other details as needed -->
+        </div>
+    <!-- </div> -->
 </body>
+</html>
