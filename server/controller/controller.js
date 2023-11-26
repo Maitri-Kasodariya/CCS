@@ -1091,6 +1091,7 @@ exports.addReview = async (req, res) => {
 
         // Redirect back to the menu item details page
         res.redirect('/menu/' + itemId);
+        // res.redirect('/menu/:id/item/:itemId');
     } catch (err) {
         console.error('Error adding review:', err);
 

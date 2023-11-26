@@ -12,13 +12,20 @@
     <!-- Add any other head-related tags as needed -->
 </head>
 <body>
+    <body>
+        <nav class="navbar">
+            <div class="main-title"><a href="#"  ><b>Cafeteria</b></a></div>
+            <div class="navbar-links">
+                <ul>
+                    <li><a href="/">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+
     <!-- <div class="container"> -->
-        <div><h1>Menu Item Details</h1></div>
         <div class="menu-item-details">
-            <p>Name: <%= menuItem.name %></p>
-            <p>Price: <%= menuItem.price %></p>
-            <p>Time: <%= menuItem.time %> mins</p>
-            <p>Category: <%= menuItem.category %></p>
+            <h1>Name: <%= menuItem.name %></h1>
+
 
             <!-- Display the image from the URL -->
             <div class="image-container">
@@ -29,62 +36,19 @@
                 <% } %>
             </div>
 
-            <p>Description: <%= menuItem.description %></p>
-            <p>Anonymous Reviews:</p>
+            <p><h3>Price:</h3> <%= menuItem.price %></p>
+            <p><h3>Time:</h3> <%= menuItem.time %> mins</p>
+            <p><h3>Category:</h3> <%= menuItem.category %></p>
+
+            <p><h3>Description: </h3><%= menuItem.description %></p>
+            <p><h3>Anonymous Reviews:</h3></p>
             <ul>
                 <% menuItem.anonymousReviews.forEach(review => { %>
                     <li><%= review %></li>
                 <% }); %>
             </ul>
 
-<!-- <div class="add-review-section">
-    <button id="addReviewBtn">Add Review</button>
-
-    <div id="reviewForm" style="display: none;">
-        <input type="text" id="reviewInput" placeholder="Enter your review">
-        <button id="submitReviewBtn">Submit Review</button>
-    </div>
-</div>
-
-<script>
-        document.getElementById('addReviewBtn').addEventListener('click', function () {
-        document.getElementById('reviewForm').style.display = 'block';
-    });
-
-    document.getElementById('submitReviewBtn').addEventListener('click', function () {
-    const reviewInput = document.getElementById('reviewInput').value;
-
-    // Get the menu item ID from the URL
-    const itemId = window.location.pathname.split('/').pop();
-
-    // Perform AJAX request to submit the review
-    fetch(`/api/menuitem/${itemId}/addreview/${encodeURIComponent(reviewInput)}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Error adding review');
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Optionally handle success response
-        console.log('Review added successfully:', data);
-        // You can redirect or show a success message if needed
-        window.location.reload(); // Refresh the page to see the updated reviews
-    })
-    .catch(error => {
-        console.error('Error adding review:', error);
-        // Handle the error as needed
-    });
-});
-
-</script> -->
-
-<div class="add-review-section">
+<div class="add-review-section bttn">
     <button id="addReviewBtn">Add Review</button>
 
     <div id="reviewForm" style="display: none;">
@@ -110,7 +74,7 @@
 
         // Get the menu item ID from the URL
         const itemId = window.location.pathname.split('/').pop();
-
+        console.log("Calling:");
         // Perform AJAX request to submit the review
         fetch(`/api/menuitem/${itemId}/addreview/${encodeURIComponent(reviewInput)}`, {
             method: 'POST',
@@ -129,12 +93,15 @@
             console.log('Review added successfully:', data);
             alert('Review added successfully!');
             // Reload the page after the user clicks OK in the alert
-            window.location.reload();
+            // window.location.reload();
         })
         .catch(error => {
             console.error('Error adding review:', error);
             // Handle the error as needed
         });
+        window.location.reload();
+        window.location.reload();
+        window.location.reload();
         window.location.reload();
     });
 </script>
