@@ -71,4 +71,9 @@ route.get('/addemployee/:id',controller.addemployeepage);
 route.get('/deleteemployee/:id/:canteenId',controller.deleteemployee);
 route.post('/employees/:id/employee/add',controller.addemployee)
 
+route.get('/menu/:id/item/:itemId', controller.menuItemDetails);
+// route.post('/api/menuitem/:itemId/addreview', controller.addReview);
+// route.post('/api/menuitem/:itemId/addreview', controller.addReview);
+route.post('/api/menuitem/:itemId/addreview/:review', controller.addReview);
+
 module.exports = route

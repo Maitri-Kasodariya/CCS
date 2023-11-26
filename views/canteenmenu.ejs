@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -55,10 +56,12 @@
                 <th class="adjust">Name</th>
                 <th>Price</th>
                 <th>Estimated Time(mins)</th>
-                <th colspan="3">Quantity</th>
+                <th >Quantity</th>
+                <th colspan="3"> Details</th>
             </tr>
             <% for(var i=0;i<data.menudata.length;i++){ %>
                 <tr>
+
                     <td>
                         <%=data.menudata[i].name%>
                     </td>
@@ -78,9 +81,16 @@
                                 id="count<%=i+1%>" name="menu[<%= i %>][quantity]" />
 
                             <input type="button" class="plus" value="+" id="plus" onclick="plus1(<%=i+1%>);">
-                            
+
 
                         </span>
+                    </td>
+                    <td>
+
+                            <a style="text-decoration: underline; color: blue;" href="/menu/<%= data.menudata[i].canteenId%>/item/<%= data.menudata[i]._id%>">
+                                Open Details ->
+                            </a>
+
                     </td>
                     <input type="hidden" name="menu[<%= i %>][itemId]" value="<%= data.menudata[i]._id %>" />
                 </tr>

@@ -72,7 +72,7 @@ exports.regvendor = async (req, res) => {
         .catch(err => {
             res.status(500)
                 .render('error', {
-                    message: err.message || 'Some error occured  while creating a create operation',
+                    message: err.message || 'Some error occured while creating a create operation',
                 });
         });
 }
@@ -798,7 +798,6 @@ exports.rejected = async (req, res) => {
 }
 
 
-//Nandani
 
 
 
@@ -974,28 +973,110 @@ exports.addmenurender= async(req, res) => {
 };
 
 //add menu item
-exports.addmenu= async (req, res) => {
+// exports.addmenu= async (req, res) => {
+//     try {
+//         const canteenId = req.params.id;
+//         const { name, price, time, category } = req.body;
+//         const newMenu = new menu({
+//           canteenId,
+//           name,
+//           price,
+//           time,
+//           category
+//         });
+//         const savedMenu = await newMenu.save();
+//         const menuItems = await menu.find({ canteenId });     
+//         res.render('showmenu',{ menuItems,canteenId});
+     
+//       } catch (error) {
+     
+//         console.error('Error adding menu item:', error);
+//         res.status(500).json({ message: 'An error occurred while adding the menu item.' });
+//       }
+//   };
+exports.addmenu = async (req, res) => {
     try {
-        const canteenId = req.params.id;
-        const { name, price, time, category } = req.body;
-        const newMenu = new menu({
-          canteenId,
-          name,
-          price,
-          time,
-          category
-        });
-        const savedMenu = await newMenu.save();
-        const menuItems = await menu.find({ canteenId });     
-        res.render('showmenu',{ menuItems,canteenId});
-     
-      } catch (error) {
-     
-        console.error('Error adding menu item:', error);
-        res.status(500).json({ message: 'An error occurred while adding the menu item.' });
-      }
-  };
+      const canteenId = req.params.id;
+      const { name, price, time, category, imageUrl, description, anonymousReviews } = req.body;
   
+      // Create a new menu object with the updated schema
+      const newMenu = new menu({
+        canteenId,
+        name,
+        price,
+        time,
+        category,
+        imageUrl,
+        description,
+        anonymousReviews: anonymousReviews ? anonymousReviews.split(',').map(review => review.trim()) : []
+      });
+  
+      // Save the new menu item to the database
+      const savedMenu = await newMenu.save();
+  
+      // Retrieve all menu items for the given canteenId
+      const menuItems = await menu.find({ canteenId });
+  
+      // Render the 'showmenu' view with the updated menu items and canteenId
+      res.render('showmenu', { menuItems, canteenId });
+  
+    } catch (error) {
+      console.error('Error adding menu item:', error);
+      res.status(500).json({ message: 'An error occurred while adding the menu item.' });
+    }
+  };
+  //fetch item details
+  exports.menuItemDetails = async (req, res) => {
+    try {
+        const itemId = req.params.itemId;
+
+        // Fetch the menu item details using the itemId
+        const menuItem = await menu.findById(itemId).exec();
+
+        if (!menuItem) {
+            throw new Error('Menu item not found');
+        }
+
+        res.render('menuitemdetails', { menuItem });
+    } catch (err) {
+        res.status(500).render('error', { message: err.message || 'Error retrieving menu item details' });
+    }
+};
+
+
+exports.addReview = async (req, res) => {
+    try {
+        const itemId = req.params.itemId;
+        const review = req.params.review; // Access review from route parameters
+
+        console.log(`Received request to add review to menu item with ID: ${itemId}`);
+        console.log(`Review to be added: ${review}`);
+
+        // Fetch the menu item using the itemId
+        const menuItem = await menu.findById(itemId).exec();
+
+        if (!menuItem) {
+            throw new Error('Menu item not found');
+        }
+
+        // Append the new review to the anonymousReviews array
+        menuItem.anonymousReviews.push(review);
+
+        // Save the updated menu item
+        await menuItem.save();
+
+        console.log(`Review added successfully. Updated menu item:`, menuItem);
+
+        // Redirect back to the menu item details page
+        res.redirect('/menu/' + itemId);
+        // res.redirect('/menu/:id/item/:itemId');
+    } catch (err) {
+        console.error('Error adding review:', err);
+
+        // Render an error page or send an error response
+        res.status(500).render('error', { message: err.message || 'Error adding review' });
+    }
+};
   exports.postannouncementrender= async (req, res) =>{
     try {
         const canteenId = req.params.id;
@@ -1210,3 +1291,4 @@ exports.showemployee=async (req, res) => {
         res.status(500).render('error', { message: error.message || 'Error retrieving data' });
     }
   };
+

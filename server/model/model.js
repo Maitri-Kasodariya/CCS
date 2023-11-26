@@ -53,6 +53,9 @@ const menuSchema = new Schema({
     price : {type: Number, required:true},
     time : {type: Number, required:true},
     category : {type: String, required:true},
+    imageUrl: { type: String }, 
+    description: { type: String }, 
+    anonymousReviews: [{ type: String }], 
 })
 
 const basketSchema = new Schema({
