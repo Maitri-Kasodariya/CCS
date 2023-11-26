@@ -193,6 +193,8 @@ body {
   /* This ensures that the button is only as wide as its content */
 }
 
+
+
 .title {
   align-items: center;
   text-align: center;
@@ -278,8 +280,8 @@ label:hover {
 }
 
 a {
-  /* text-decoration: none; */
-  /* color:white; */
+  text-decoration: none;
+  color:white;
   /* color: black; */
 }
 
