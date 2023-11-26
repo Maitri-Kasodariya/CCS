@@ -26,6 +26,7 @@
                 <li><a href="/addreview">Add Review </a></li>
                 <li><a href="/review">Reviews</a></li>
                 <li><a href="/announcements">Announcements</a></li>
+                <li><a id = "accountpage">Account</a></li>
              </ul>
           </div>
           <span class="main-title"><a href="/"  ><b>Cafeteria</b></a><span>
@@ -79,6 +80,7 @@
             const dailyUserLink = document.getElementById('dailyuser');
             const monthlyUserLink = document.getElementById('monthlyuser');
             const orderHistoryLink = document.getElementById('orderHistory');
+            const accountPageLink = document.getElementById('accountpage');
 
             dailyUserLink.addEventListener('click', function() {
                 window.location.href = `/dailyuser/${userId}`;
@@ -91,6 +93,11 @@
             orderHistoryLink.addEventListener('click', function() {
                 window.location.href = `/orderHistory/${userId}`;
             });
+
+            accountPageLink.addEventListener('click', function() {
+                window.location.href = `/accountpage/${userId}`;
+            });
+
         };
 </script>
 </body>

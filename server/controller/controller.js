@@ -629,7 +629,7 @@ exports.afteraddreview = async (req, res) => {
                             res.render('userhome', {
                                 bodydata: {
                                     data: dataven,
-                                    id: data[0]._id,
+                                    id: id,
                                     latestAnnouncement: latestAnnouncement // Pass the latest announcement to the view
                                 }
                             });
