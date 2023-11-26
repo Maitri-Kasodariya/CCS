@@ -52,7 +52,13 @@
     bottom: 0;
     max-width: 0;
     transition: all 0.2s var(--timing-func);
+    overflow-y: scroll;
   }
+
+  .sidebar::-webkit-scrollbar {
+    width: 10px;
+  }
+
   .menu li{
     padding: 10px;
     /* border:1px solid #efefef; */
@@ -186,4 +192,12 @@ h2 a{
    color:black;
    margin: 10px;
  }
-
+.Ann{
+  padding:10px ;
+  margin:10px;
+  margin-left: 100px;
+  margin-right: 100px;
+  border:1px solid #FE724C;
+  border-radius: 20px;
+  background-color: antiquewhite;
+}

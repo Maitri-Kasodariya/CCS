@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post Announcement</title>
+   <link rel="stylesheet" href="/css/addmenu.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="main-title"><a href="/vendorhomepage/<%=canteenId%>"><b>Vendor Home</b></a></div>  
+        <div class="navbar-links">
+            <ul>
+                <li><a href="/">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <h1>Post Announcement</h1>
+    &nbsp;&nbsp;&nbsp;
+    <!-- <form action="/showmenu/<%= canteenId %>/">
+        <button type="submit" class="bt">Show Menu</button>
+    </form> -->
+    
+    <form method="POST" action="/postannouncement/<%=canteenId%>">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title"><br><br>
+
+        <!-- <label for="price">Price:</label>
+        <input type="number" id="price" name="price" ><br><br>
+
+        <label for="time">Time:</label>
+        <input type="number" id="time" name="time" ><br><br> -->
+
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description"><br><br>
+
+        <button type="submit">Post Announcement</button>
+    
+    
+        
+    </form>
+   
+</body>
+</html>

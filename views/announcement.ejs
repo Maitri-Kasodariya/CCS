@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reviews</title>
+    <title>Announcements</title>
     <link rel="stylesheet" href="/css/reviewmain.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
@@ -26,75 +26,46 @@
                 <li><a href="/addreview">Add Review </a></li>
                 <li><a href="/review">Reviews</a></li>
                 <li><a href="/announcements">Announcements</a></li>
-                <li><a id = "accountpage">Account</a></li>
              </ul>
           </div>
-          <span class="main-title"><a href="/review"  ><b>Review Page</b></a><span>
+          <span class="main-title"><a href="/"  ><b>Cafeteria</b></a><span>
         <span class="navbar-links">
                 <a href="/">Logout</a></li>
           </span>
     </nav>
     <div>
-        <h2 class="reviewt">Student Reviews</h2>
+        <h2 class="reviewt">Announcements</h2>
 
- <button id="addreviewbutton"><a href="/addreview" id="addreview">Add Review</a></button>
-<% if (reviews.length === 0) { %>
-  <p>No reviews found.</p>
+ <!-- <button id="addreviewbutton"><a href="/addreview" id="addreview">Add Review</a></button> -->
+<% if (announcements.length === 0) { %>
+  <p>No Announcements found.</p>
 <% } else { %>
   <table class="reviews-table">
     <thead>
       <tr class="first"> 
         <th class="title-description-col" style="font-size: 1.5rem;">Title & Description</th>
-        <th class="rating-col"style="font-size: 1.5rem;">Ratings</th>
-        <th class="status-col"style="font-size: 1.5rem;">Status</th>
+        <th class="status-col"style="font-size: 1.5rem;">Date</th>
       </tr>
     </thead>
     <tbody>
-      <% reviews.forEach((review) => { %>
+        <% announcements
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .forEach((announcement) => { %>
         <tr>
           <td class="title-description-col">
-            <h2><%= review.title %></h2>
-            <p><%= review.description %></p>
+            <h2><%= announcement.title %></h2>
+            <p><%= announcement.description %></p>
           </td>
-          <td class="rating-col">
-            <div class="star-rating">
-              <div class="flex">
-                <p>Quantity:
-                  <% for (let i = 1; i <= 5; i++) { %>
-                    <% if (i <= review.rating1) { %>
-                      <i class="star checked fas fa-star"></i>
-                    <% } else { %>
-                      <i class="star fas fa-star"></i>
-                    <% } %>
-                  <% } %>
-                </p>
-              </div> 
-              <div class="flex">
-                <p>Quality:
-                  <% for (let i = 1; i <= 5; i++) { %>
-                    <% if (i <= review.rating2) { %>
-                      <i class="star checked fas fa-star"></i>
-                    <% } else { %>
-                      <i class="star fas fa-star"></i>
-                    <% } %>
-                  <% } %>
-                </p>
-              </div>
-              <div class="flex">
-                <p>Price:
-                  <% for (let i = 1; i <= 5; i++) { %>
-                    <% if (i <= review.rating3) { %>
-                      <i class="star checked fas fa-star"></i>
-                    <% } else { %>
-                      <i class="star fas fa-star"></i>
-                    <% } %>
-                  <% } %>
-                </p>
-              </div>
-            </div>
-          </td>
+         
           <td class="status-col">
-            <%= review.status %>
+            <%= new Date(announcement.date).toLocaleDateString('en-GB', {
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit'
+            }) %>
           </td>
         </tr>
       <% }); %>
@@ -108,7 +79,6 @@
             const dailyUserLink = document.getElementById('dailyuser');
             const monthlyUserLink = document.getElementById('monthlyuser');
             const orderHistoryLink = document.getElementById('orderHistory');
-            const accountPageLink = document.getElementById('accountpage');
 
             dailyUserLink.addEventListener('click', function() {
                 window.location.href = `/dailyuser/${userId}`;
@@ -120,10 +90,6 @@
 
             orderHistoryLink.addEventListener('click', function() {
                 window.location.href = `/orderHistory/${userId}`;
-            });
-
-            accountPageLink.addEventListener('click', function() {
-                window.location.href = `/accountpage/${userId}`;
             });
         };
 </script>

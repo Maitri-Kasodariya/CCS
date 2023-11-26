@@ -19,6 +19,10 @@ route.get('/addreview',services.addreview)
 route.get('/review',controller.reviewshow)
 route.get('/reviewadmin',controller.reviewshowforadmin)
 route.get('/vendorform',controller.formdata)
+route.get('/announcements',controller.announcementsshow)
+route.get('/accountpage/:id',controller.accountpage)
+route.get('/vendoraccount/:id',controller.vendoraccountpage)
+
 
 /**
   * @description API Route
@@ -57,6 +61,15 @@ route.get('/addmen/:id',controller.addmenurender);
 route.post('/canteens/:id/menu/add',controller.addmenu);
 route.get('/back/:id',controller.backfromshowmenu);
 route.get('/deletemenuitem/:id/:canteenId',controller.deletemenuitem);
+route.get('/postannouncementrender/:id',controller.postannouncementrender);
+route.post('/postannouncement/:id',controller.postannouncement);
+route.get('/reset/:id/:canteenId',controller.resetamount);
+route.get('/vendorhomepage/:id',controller.vendorhome);
+route.post('/searchAccount/:id',controller.searchAccount);
+route.get('/showemployee/:id',controller.showemployee);
+route.get('/addemployee/:id',controller.addemployeepage);
+route.get('/deleteemployee/:id/:canteenId',controller.deleteemployee);
+route.post('/employees/:id/employee/add',controller.addemployee)
 
 route.get('/menu/:id/item/:itemId', controller.menuItemDetails);
 // route.post('/api/menuitem/:itemId/addreview', controller.addReview);
