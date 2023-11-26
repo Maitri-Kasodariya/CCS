@@ -66,5 +66,9 @@ route.post('/postannouncement/:id',controller.postannouncement);
 route.get('/reset/:id/:canteenId',controller.resetamount);
 route.get('/vendorhomepage/:id',controller.vendorhome);
 route.post('/searchAccount/:id',controller.searchAccount);
+route.get('/showemployee/:id',controller.showemployee);
+route.get('/addemployee/:id',controller.addemployeepage);
+route.get('/deleteemployee/:id/:canteenId',controller.deleteemployee);
+route.post('/employees/:id/employee/add',controller.addemployee)
 
 module.exports = route

@@ -89,6 +89,15 @@ const accountSchema = new Schema({
     amount : {type: Number, default:0},
 });
 
+const employeeSchema = new Schema({
+    name : {type: String, required:true},
+    salary : {type: Number, required:true},
+    address : {type:String,default:"No"},
+    phoneNumber: { type: String },
+    work: { type: String },
+    canteenId : {type: mongoose.Schema.Types.ObjectId, ref: 'vendor'},
+});
+
 const user = mongoose.model('User', userSchema);
 const vendor = mongoose.model('Vendor', vendorSchema);
 const admin = mongoose.model('Admin', adminSchema);
@@ -98,6 +107,7 @@ const basket = mongoose.model('Basket',basketSchema);
 const review = mongoose.model('Review', reviewSchema);
 const announcement = mongoose.model('Announcement',announcementSchema);
 const account = mongoose.model('Account',accountSchema);
+const employee = mongoose.model('Employee',employeeSchema);
 
 
-module.exports = {user,vendor,admin,order,menu,basket,review,announcement,account};
+module.exports = {user,vendor,admin,order,menu,basket,review,announcement,account,employee};

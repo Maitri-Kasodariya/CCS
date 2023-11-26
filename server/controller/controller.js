@@ -1,4 +1,4 @@
-const { user, vendor, admin, order, menu, basket, review,announcement,account } = require('../model/model');
+const { user, vendor, admin, order, menu, basket, review,announcement,account,employee } = require('../model/model');
 const { ObjectId } = require('mongodb');
 
 //register user
@@ -1151,3 +1151,62 @@ exports.searchAccount = async (req,res) =>{
         res.status(500).render('error', { message: error.message || 'Error retrieving data' });
     }
 };
+
+//show employees list
+exports.showemployee=async (req, res) => {
+    try {
+      const canteenId = req.params.id; 
+      const employeelist = await employee.find({ canteenId });
+  
+     
+  
+    
+      res.render('showemployee',{ employeelist,canteenId});
+    } catch (error) {
+        res.status(500).render('error', { message: error.message || 'Error retrieving data' });
+    }
+  };
+
+  //add employee page
+  exports.addemployeepage=async (req, res) => {
+    try {
+      const canteenId = req.params.id; 
+      res.render('addemployee',{canteenId});
+    } catch (error) {
+  
+        res.status(500).render('error', { message: error.message || 'Error retrieving data' });
+    }
+  };
+
+  //add employee
+  exports.addemployee=async (req, res) => {
+    try {
+        const canteenId = req.params.id;
+        const { name, salary, phoneNumber, work, address } = req.body;
+        const newEmployee = new employee({
+          canteenId,
+          name,
+          salary,
+          phoneNumber,
+          work,
+          address
+        });
+       await newEmployee.save();
+            
+        res.redirect('/showemployee/'+canteenId);
+    } catch (error) {
+        res.status(500).render('error', { message: error.message || 'Error retrieving data' });
+    }
+  };
+
+  //delete employee
+  exports.deleteemployee=async (req, res) => {
+    try {
+        const { id, canteenId } = req.params;
+        await employee.deleteOne({ _id: id });
+        
+        res.redirect('/showemployee/'+canteenId);
+    } catch (error) {
+        res.status(500).render('error', { message: error.message || 'Error retrieving data' });
+    }
+  };
